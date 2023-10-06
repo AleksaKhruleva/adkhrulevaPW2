@@ -67,10 +67,11 @@ final class WishMakerViewController: UIViewController {
         stackView.clipsToBounds = true
         
         let sliderRed = CustomSlider(title: Constants.red, min: Constants.sliderMin, max: Constants.sliderMax)
-        let sliderBlue = CustomSlider(title: Constants.blue, min: Constants.sliderMin, max: Constants.sliderMax)
         let sliderGreen = CustomSlider(title: Constants.green, min: Constants.sliderMin, max: Constants.sliderMax)
+        let sliderBlue = CustomSlider(title: Constants.blue, min: Constants.sliderMin, max: Constants.sliderMax)
         
         for slider in [sliderRed, sliderBlue, sliderGreen] {
+            slider.tintColor = view.backgroundColor
             stackView.addArrangedSubview(slider)
         }
         
@@ -92,6 +93,25 @@ final class WishMakerViewController: UIViewController {
             self?.button.setTitleColor(self?.view.backgroundColor ?? .white, for: .normal)
             self?.button.setTitleColor(self?.titleView.textColor, for: .highlighted)
             self?.button.backgroundColor = oppositeColor
+            for slider in [sliderRed, sliderGreen, sliderBlue] {
+                slider.tintColor = self?.view.backgroundColor
+            }
+        }
+        
+        sliderGreen.valueChanged = { [weak self] value in
+            self?.view.backgroundColor = UIColor(
+                red: Double(sliderRed.slider.value),
+                blue: Double(sliderBlue.slider.value),
+                green: value)
+            let oppositeColor = UIColor.oppositeColor(baseColor: self?.view.backgroundColor ?? .white)
+            self?.titleView.textColor = oppositeColor
+            self?.descriptionView.textColor = oppositeColor
+            self?.button.setTitleColor(self?.view.backgroundColor ?? .white, for: .normal)
+            self?.button.setTitleColor(self?.titleView.textColor, for: .highlighted)
+            self?.button.backgroundColor = oppositeColor
+            for slider in [sliderRed, sliderGreen, sliderBlue] {
+                slider.tintColor = self?.view.backgroundColor
+            }
         }
         
         sliderBlue.valueChanged = { [weak self] value in
@@ -106,19 +126,9 @@ final class WishMakerViewController: UIViewController {
             self?.button.setTitleColor(self?.view.backgroundColor ?? .white, for: .normal)
             self?.button.setTitleColor(self?.titleView.textColor, for: .highlighted)
             self?.button.backgroundColor = oppositeColor
-        }
-        
-        sliderGreen.valueChanged = { [weak self] value in
-            self?.view.backgroundColor = UIColor(
-                red: Double(sliderRed.slider.value),
-                blue: Double(sliderBlue.slider.value),
-                green: value)
-            let oppositeColor = UIColor.oppositeColor(baseColor: self?.view.backgroundColor ?? .white)
-            self?.titleView.textColor = oppositeColor
-            self?.descriptionView.textColor = oppositeColor
-            self?.button.setTitleColor(self?.view.backgroundColor ?? .white, for: .normal)
-            self?.button.setTitleColor(self?.titleView.textColor, for: .highlighted)
-            self?.button.backgroundColor = oppositeColor
+            for slider in [sliderRed, sliderGreen, sliderBlue] {
+                slider.tintColor = self?.view.backgroundColor
+            }
         }
     }
     
