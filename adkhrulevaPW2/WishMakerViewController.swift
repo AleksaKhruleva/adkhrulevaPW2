@@ -9,10 +9,11 @@ import UIKit
 
 final class WishMakerViewController: UIViewController {
     
-    private var titleView = UILabel()
-    private var descriptionView = UILabel()
-    private var button = UIButton()
-    private var stackView = UIStackView()
+    private var titleView: UILabel = UILabel()
+    private var descriptionView: UILabel = UILabel()
+    private var button: UIButton = UIButton()
+    private var stackView: UIStackView = UIStackView()
+    private let addWishButton: UIButton = UIButton(type: .system)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,6 +25,8 @@ final class WishMakerViewController: UIViewController {
         
         configureTitle()
         configureDescription()
+        
+        configureAddWishButton()
         configureSliders()
         configureButton()
     }
@@ -35,11 +38,10 @@ final class WishMakerViewController: UIViewController {
         titleView.textColor = .random()
         
         view.addSubview(titleView)
-        NSLayoutConstraint.activate([
-            titleView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            titleView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: Constants.titleTop),
-            titleView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Constants.titleLeading),
-        ])
+        
+        titleView.pinCenterX(to: view.centerXAnchor)
+        titleView.pinTop(to: view.safeAreaLayoutGuide.topAnchor, Constants.titleTop)
+        titleView.pinLeft(to: view.leadingAnchor, Constants.titleLeading)
     }
     
     private func configureDescription() {
@@ -51,11 +53,10 @@ final class WishMakerViewController: UIViewController {
         descriptionView.numberOfLines = Constants.appDescrLineNums
         
         view.addSubview(descriptionView)
-        NSLayoutConstraint.activate([
-            descriptionView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            descriptionView.topAnchor.constraint(equalTo: titleView.bottomAnchor, constant: Constants.descrTop),
-            descriptionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Constants.descrLeading),
-        ])
+        
+        descriptionView.pinCenterX(to: view.centerXAnchor)
+        descriptionView.pinTop(to: titleView.bottomAnchor, Constants.descrTop)
+        descriptionView.pinLeft(to: view.leadingAnchor, Constants.descrLeading)
     }
     
     private func configureSliders() {
@@ -75,11 +76,9 @@ final class WishMakerViewController: UIViewController {
             stackView.addArrangedSubview(slider)
         }
         
-        NSLayoutConstraint.activate([
-            stackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            stackView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: Constants.stackBottom),
-            stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Constants.stackLeading),
-        ])
+        stackView.setWidth(Constants.stackWidth)
+        stackView.pinCenterX(to: view.centerXAnchor)
+        stackView.pinBottom(to: addWishButton.topAnchor, Constants.stackBottom)
         
         sliderRed.valueChanged = { [weak self] value in
             self?.view.backgroundColor = UIColor(
@@ -93,6 +92,9 @@ final class WishMakerViewController: UIViewController {
             self?.button.setTitleColor(self?.view.backgroundColor ?? .white, for: .normal)
             self?.button.setTitleColor(self?.titleView.textColor, for: .highlighted)
             self?.button.backgroundColor = oppositeColor
+            self?.addWishButton.setTitleColor(self?.view.backgroundColor ?? .white, for: .normal)
+            self?.addWishButton.setTitleColor(self?.titleView.textColor, for: .highlighted)
+            self?.addWishButton.backgroundColor = oppositeColor
             for slider in [sliderRed, sliderGreen, sliderBlue] {
                 slider.tintColor = self?.view.backgroundColor
             }
@@ -109,6 +111,9 @@ final class WishMakerViewController: UIViewController {
             self?.button.setTitleColor(self?.view.backgroundColor ?? .white, for: .normal)
             self?.button.setTitleColor(self?.titleView.textColor, for: .highlighted)
             self?.button.backgroundColor = oppositeColor
+            self?.addWishButton.setTitleColor(self?.view.backgroundColor ?? .white, for: .normal)
+            self?.addWishButton.setTitleColor(self?.titleView.textColor, for: .highlighted)
+            self?.addWishButton.backgroundColor = oppositeColor
             for slider in [sliderRed, sliderGreen, sliderBlue] {
                 slider.tintColor = self?.view.backgroundColor
             }
@@ -126,6 +131,9 @@ final class WishMakerViewController: UIViewController {
             self?.button.setTitleColor(self?.view.backgroundColor ?? .white, for: .normal)
             self?.button.setTitleColor(self?.titleView.textColor, for: .highlighted)
             self?.button.backgroundColor = oppositeColor
+            self?.addWishButton.setTitleColor(self?.view.backgroundColor ?? .white, for: .normal)
+            self?.addWishButton.setTitleColor(self?.titleView.textColor, for: .highlighted)
+            self?.addWishButton.backgroundColor = oppositeColor
             for slider in [sliderRed, sliderGreen, sliderBlue] {
                 slider.tintColor = self?.view.backgroundColor
             }
@@ -140,19 +148,41 @@ final class WishMakerViewController: UIViewController {
         button.setTitleColor(titleView.textColor, for: .highlighted)
         button.backgroundColor = titleView.textColor
         button.layer.cornerRadius = Constants.buttonRadius
-        button.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
+        button.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
         
         view.addSubview(button)
-        NSLayoutConstraint.activate([
-            button.widthAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: Constants.buttonWidthMult),
-            button.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            button.bottomAnchor.constraint(equalTo: stackView.topAnchor, constant: Constants.buttonBottom),
-        ])
+        
+        button.setHeight(Constants.buttonHeight)
+        button.setWidth(Constants.stackWidth)
+        button.pinCenterX(to: view.centerXAnchor)
+        button.pinBottom(to: stackView.topAnchor, Constants.buttonBottom)
+    }
+    
+    private func configureAddWishButton() {
+        button.translatesAutoresizingMaskIntoConstraints = false
+        addWishButton.setTitle(Constants.addWishButtonText, for: .normal)
+        addWishButton.titleLabel?.font = UIFont.systemFont(ofSize: Constants.buttonTitleFS, weight: .bold)
+        addWishButton.setTitleColor(.systemPink, for: .normal)
+        addWishButton.backgroundColor = titleView.textColor
+        addWishButton.layer.cornerRadius = Constants.buttonRadius
+        addWishButton.addTarget(self, action: #selector(addWishButtonPressed), for: .touchUpInside)
+        
+        view.addSubview(addWishButton)
+        
+        addWishButton.setHeight(Constants.buttonHeight)
+        addWishButton.setWidth(Constants.stackWidth)
+        addWishButton.pinCenterX(to: view.centerXAnchor)
+        addWishButton.pinBottom(to: view, Constants.addWishButtonBottom)
     }
     
     @objc
-    func buttonAction() {
+    private func buttonPressed() {
         stackView.isHidden = !stackView.isHidden
         button.setTitle(stackView.isHidden ? Constants.buttonTextShow : Constants.buttonTextHide, for: .normal)
+    }
+    
+    @objc
+    private func addWishButtonPressed() {
+        // this will be done later!
     }
 }

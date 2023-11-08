@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 enum Constants {
     static let appTitle: String = "WishMaker"
@@ -26,11 +27,12 @@ enum Constants {
     static let descrLeading: CGFloat = 20
     
     static let buttonWidthMult: Double = 0.7
+    static let buttonHeight: Double = 50
     static let buttonRadius: CGFloat = 20
-    static let buttonBottom: CGFloat = -20
+    static let buttonBottom: CGFloat = 20
     static let buttonTextShow: String = "Show sliders"
     static let buttonTextHide: String = "Hide sliders"
-    static let buttonTitleFS: CGFloat = 25
+    static let buttonTitleFS: CGFloat = 20
     
     static let sliderTitleTop: CGFloat = 10
     static let sliderTitleLeading: CGFloat = 20
@@ -39,9 +41,13 @@ enum Constants {
     static let sliderMin: Double = 0
     static let sliderMax: Double = 1
     
-    static let stackBottom: CGFloat = -40
+    static let stackBottom: CGFloat = 20
     static let stackLeading: CGFloat = 20
     static let stackRadius: CGFloat = 20
+    static let stackWidth: CGFloat = UIScreen.main.bounds.width / 1.1
+    
+    static let addWishButtonText: String = "My wishes"
+    static let addWishButtonBottom: CGFloat = 50
     
     static let colorRange: ClosedRange<CGFloat> = 0...1
     static let opacity: Double = 1.0
