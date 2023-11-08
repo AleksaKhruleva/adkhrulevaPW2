@@ -9,10 +9,10 @@ import UIKit
 
 final class WishMakerViewController: UIViewController {
     
-    private var titleView: UILabel = UILabel()
-    private var descriptionView: UILabel = UILabel()
-    private var button: UIButton = UIButton()
-    private var stackView: UIStackView = UIStackView()
+    private let titleView: UILabel = UILabel()
+    private let descriptionView: UILabel = UILabel()
+    private let button: UIButton = UIButton()
+    private let stackView: UIStackView = UIStackView()
     private let addWishButton: UIButton = UIButton(type: .system)
     
     override func viewDidLoad() {
@@ -32,12 +32,13 @@ final class WishMakerViewController: UIViewController {
     }
     
     private func configureTitle() {
+        view.addSubview(titleView)
+        
         titleView.translatesAutoresizingMaskIntoConstraints = false
         titleView.text = Constants.appTitle
         titleView.font = UIFont.systemFont(ofSize: Constants.appTitleFS, weight: .heavy)
-        titleView.textColor = .random()
-        
-        view.addSubview(titleView)
+        //        titleView.textColor = .random()
+        titleView.textColor = .black
         
         titleView.pinCenterX(to: view.centerXAnchor)
         titleView.pinTop(to: view.safeAreaLayoutGuide.topAnchor, Constants.titleTop)
@@ -45,6 +46,8 @@ final class WishMakerViewController: UIViewController {
     }
     
     private func configureDescription() {
+        view.addSubview(descriptionView)
+        
         descriptionView.translatesAutoresizingMaskIntoConstraints = false
         descriptionView.text = Constants.appDescr
         descriptionView.textColor = titleView.textColor
@@ -52,18 +55,16 @@ final class WishMakerViewController: UIViewController {
         descriptionView.lineBreakMode = .byWordWrapping
         descriptionView.numberOfLines = Constants.appDescrLineNums
         
-        view.addSubview(descriptionView)
-        
         descriptionView.pinCenterX(to: view.centerXAnchor)
         descriptionView.pinTop(to: titleView.bottomAnchor, Constants.descrTop)
         descriptionView.pinLeft(to: view.leadingAnchor, Constants.descrLeading)
     }
     
     private func configureSliders() {
+        view.addSubview(stackView)
+        
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
-        
-        view.addSubview(stackView)
         stackView.layer.cornerRadius = Constants.stackRadius
         stackView.clipsToBounds = true
         
@@ -141,6 +142,8 @@ final class WishMakerViewController: UIViewController {
     }
     
     private func configureButton() {
+        view.addSubview(button)
+        
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle(Constants.buttonTextHide, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: Constants.buttonTitleFS, weight: .bold)
@@ -150,8 +153,6 @@ final class WishMakerViewController: UIViewController {
         button.layer.cornerRadius = Constants.buttonRadius
         button.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
         
-        view.addSubview(button)
-        
         button.setHeight(Constants.buttonHeight)
         button.setWidth(Constants.stackWidth)
         button.pinCenterX(to: view.centerXAnchor)
@@ -159,6 +160,8 @@ final class WishMakerViewController: UIViewController {
     }
     
     private func configureAddWishButton() {
+        view.addSubview(addWishButton)
+        
         button.translatesAutoresizingMaskIntoConstraints = false
         addWishButton.setTitle(Constants.addWishButtonText, for: .normal)
         addWishButton.titleLabel?.font = UIFont.systemFont(ofSize: Constants.buttonTitleFS, weight: .bold)
@@ -167,8 +170,6 @@ final class WishMakerViewController: UIViewController {
         addWishButton.backgroundColor = titleView.textColor
         addWishButton.layer.cornerRadius = Constants.buttonRadius
         addWishButton.addTarget(self, action: #selector(addWishButtonPressed), for: .touchUpInside)
-        
-        view.addSubview(addWishButton)
         
         addWishButton.setHeight(Constants.buttonHeight)
         addWishButton.setWidth(Constants.stackWidth)

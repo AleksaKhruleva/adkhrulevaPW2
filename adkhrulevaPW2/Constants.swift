@@ -54,6 +54,10 @@ enum Constants {
     static let closeButtonTop: CGFloat = 15
     static let closeButtonTrailing: CGFloat = 20
     
+    static let tableCornerRadius: CGFloat = 30
+    static let tableTop: CGFloat = 10
+    static let tableBottom: CGFloat = 40
+    static let tableHorizontal: CGFloat = 10
     
     static let colorRange: ClosedRange<CGFloat> = 0...1
     static let opacity: Double = 1.0
