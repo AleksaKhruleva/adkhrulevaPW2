@@ -49,6 +49,12 @@ enum Constants {
     static let addWishButtonText: String = "My wishes"
     static let addWishButtonBottom: CGFloat = 50
     
+    static let closeButtonText: String = "Close"
+    static let closeButtonTitleFS: CGFloat = 16
+    static let closeButtonTop: CGFloat = 15
+    static let closeButtonTrailing: CGFloat = 20
+    
+    
     static let colorRange: ClosedRange<CGFloat> = 0...1
     static let opacity: Double = 1.0
     

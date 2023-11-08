@@ -162,7 +162,8 @@ final class WishMakerViewController: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         addWishButton.setTitle(Constants.addWishButtonText, for: .normal)
         addWishButton.titleLabel?.font = UIFont.systemFont(ofSize: Constants.buttonTitleFS, weight: .bold)
-        addWishButton.setTitleColor(.systemPink, for: .normal)
+        addWishButton.setTitleColor(view.backgroundColor, for: .normal)
+        addWishButton.setTitleColor(titleView.textColor, for: .highlighted)
         addWishButton.backgroundColor = titleView.textColor
         addWishButton.layer.cornerRadius = Constants.buttonRadius
         addWishButton.addTarget(self, action: #selector(addWishButtonPressed), for: .touchUpInside)
@@ -183,6 +184,6 @@ final class WishMakerViewController: UIViewController {
     
     @objc
     private func addWishButtonPressed() {
-        // this will be done later!
+        present(WishStoringViewController(), animated: true)
     }
 }
