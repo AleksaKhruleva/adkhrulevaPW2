@@ -54,10 +54,17 @@ enum Constants {
     static let closeButtonTop: CGFloat = 15
     static let closeButtonTrailing: CGFloat = 20
     
-    static let tableCornerRadius: CGFloat = 30
+    static let tableCornerRadius: CGFloat = 16
     static let tableTop: CGFloat = 10
     static let tableBottom: CGFloat = 40
     static let tableHorizontal: CGFloat = 10
+    
+    static let cellReuseId: String = "WrittenWishCell"
+    static let cellWrapColor: UIColor = .white
+    static let cellWrapRadius: CGFloat = 16
+    static let cellWrapOffsetV: CGFloat = 5
+    static let cellWrapOffsetH: CGFloat = 10
+    static let cellWishLabelOffset: CGFloat = 8
     
     static let colorRange: ClosedRange<CGFloat> = 0...1
     static let opacity: Double = 1.0
