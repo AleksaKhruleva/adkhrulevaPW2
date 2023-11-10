@@ -11,7 +11,7 @@ final class WishMakerViewController: UIViewController {
     
     private let titleView: UILabel = UILabel()
     private let descriptionView: UILabel = UILabel()
-    private let button: UIButton = UIButton()
+    private let hideButton: UIButton = UIButton()
     private let stackView: UIStackView = UIStackView()
     private let addWishButton: UIButton = UIButton(type: .system)
     
@@ -28,7 +28,7 @@ final class WishMakerViewController: UIViewController {
         
         configureAddWishButton()
         configureSliders()
-        configureButton()
+        configureHideButton()
     }
     
     private func configureTitle() {
@@ -90,9 +90,9 @@ final class WishMakerViewController: UIViewController {
             let oppositeColor = UIColor.oppositeColor(baseColor: self?.view.backgroundColor ?? .white)
             self?.titleView.textColor = oppositeColor
             self?.descriptionView.textColor = oppositeColor
-            self?.button.setTitleColor(self?.view.backgroundColor ?? .white, for: .normal)
-            self?.button.setTitleColor(self?.titleView.textColor, for: .highlighted)
-            self?.button.backgroundColor = oppositeColor
+            self?.hideButton.setTitleColor(self?.view.backgroundColor ?? .white, for: .normal)
+            self?.hideButton.setTitleColor(self?.titleView.textColor, for: .highlighted)
+            self?.hideButton.backgroundColor = oppositeColor
             self?.addWishButton.setTitleColor(self?.view.backgroundColor ?? .white, for: .normal)
             self?.addWishButton.setTitleColor(self?.titleView.textColor, for: .highlighted)
             self?.addWishButton.backgroundColor = oppositeColor
@@ -109,9 +109,9 @@ final class WishMakerViewController: UIViewController {
             let oppositeColor = UIColor.oppositeColor(baseColor: self?.view.backgroundColor ?? .white)
             self?.titleView.textColor = oppositeColor
             self?.descriptionView.textColor = oppositeColor
-            self?.button.setTitleColor(self?.view.backgroundColor ?? .white, for: .normal)
-            self?.button.setTitleColor(self?.titleView.textColor, for: .highlighted)
-            self?.button.backgroundColor = oppositeColor
+            self?.hideButton.setTitleColor(self?.view.backgroundColor ?? .white, for: .normal)
+            self?.hideButton.setTitleColor(self?.titleView.textColor, for: .highlighted)
+            self?.hideButton.backgroundColor = oppositeColor
             self?.addWishButton.setTitleColor(self?.view.backgroundColor ?? .white, for: .normal)
             self?.addWishButton.setTitleColor(self?.titleView.textColor, for: .highlighted)
             self?.addWishButton.backgroundColor = oppositeColor
@@ -129,9 +129,9 @@ final class WishMakerViewController: UIViewController {
             let oppositeColor = UIColor.oppositeColor(baseColor: self?.view.backgroundColor ?? .white)
             self?.titleView.textColor = oppositeColor
             self?.descriptionView.textColor = oppositeColor
-            self?.button.setTitleColor(self?.view.backgroundColor ?? .white, for: .normal)
-            self?.button.setTitleColor(self?.titleView.textColor, for: .highlighted)
-            self?.button.backgroundColor = oppositeColor
+            self?.hideButton.setTitleColor(self?.view.backgroundColor ?? .white, for: .normal)
+            self?.hideButton.setTitleColor(self?.titleView.textColor, for: .highlighted)
+            self?.hideButton.backgroundColor = oppositeColor
             self?.addWishButton.setTitleColor(self?.view.backgroundColor ?? .white, for: .normal)
             self?.addWishButton.setTitleColor(self?.titleView.textColor, for: .highlighted)
             self?.addWishButton.backgroundColor = oppositeColor
@@ -141,37 +141,37 @@ final class WishMakerViewController: UIViewController {
         }
     }
     
-    private func configureButton() {
-        view.addSubview(button)
+    private func configureHideButton() {
+        view.addSubview(hideButton)
         
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle(Constants.buttonTextHide, for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: Constants.buttonTitleFS, weight: .bold)
-        button.setTitleColor(view.backgroundColor, for: .normal)
-        button.setTitleColor(titleView.textColor, for: .highlighted)
-        button.backgroundColor = titleView.textColor
-        button.layer.cornerRadius = Constants.buttonRadius
-        button.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
+        hideButton.translatesAutoresizingMaskIntoConstraints = false
+        hideButton.setTitle(Constants.hideButtonTextHide, for: .normal)
+        hideButton.titleLabel?.font = UIFont.systemFont(ofSize: Constants.hideButtonTitleFS, weight: .bold)
+        hideButton.setTitleColor(view.backgroundColor, for: .normal)
+        hideButton.setTitleColor(titleView.textColor, for: .highlighted)
+        hideButton.backgroundColor = titleView.textColor
+        hideButton.layer.cornerRadius = Constants.hideButtonRadius
+        hideButton.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
         
-        button.setHeight(Constants.buttonHeight)
-        button.setWidth(Constants.stackWidth)
-        button.pinCenterX(to: view.centerXAnchor)
-        button.pinBottom(to: stackView.topAnchor, Constants.buttonBottom)
+        hideButton.setHeight(Constants.hideButtonHeight)
+        hideButton.setWidth(Constants.stackWidth)
+        hideButton.pinCenterX(to: view.centerXAnchor)
+        hideButton.pinBottom(to: stackView.topAnchor, Constants.hideButtonBottom)
     }
     
     private func configureAddWishButton() {
         view.addSubview(addWishButton)
         
-        button.translatesAutoresizingMaskIntoConstraints = false
+        addWishButton.translatesAutoresizingMaskIntoConstraints = false
         addWishButton.setTitle(Constants.addWishButtonText, for: .normal)
-        addWishButton.titleLabel?.font = UIFont.systemFont(ofSize: Constants.buttonTitleFS, weight: .bold)
+        addWishButton.titleLabel?.font = UIFont.systemFont(ofSize: Constants.hideButtonTitleFS, weight: .bold)
         addWishButton.setTitleColor(view.backgroundColor, for: .normal)
         addWishButton.setTitleColor(titleView.textColor, for: .highlighted)
         addWishButton.backgroundColor = titleView.textColor
-        addWishButton.layer.cornerRadius = Constants.buttonRadius
-        addWishButton.addTarget(self, action: #selector(addWishButtonPressed), for: .touchUpInside)
+        addWishButton.layer.cornerRadius = Constants.hideButtonRadius
+        addWishButton.addTarget(self, action: #selector(showWishesButtonPressed), for: .touchUpInside)
         
-        addWishButton.setHeight(Constants.buttonHeight)
+        addWishButton.setHeight(Constants.hideButtonHeight)
         addWishButton.setWidth(Constants.stackWidth)
         addWishButton.pinCenterX(to: view.centerXAnchor)
         addWishButton.pinBottom(to: view, Constants.addWishButtonBottom)
@@ -180,11 +180,11 @@ final class WishMakerViewController: UIViewController {
     @objc
     private func buttonPressed() {
         stackView.isHidden = !stackView.isHidden
-        button.setTitle(stackView.isHidden ? Constants.buttonTextShow : Constants.buttonTextHide, for: .normal)
+        hideButton.setTitle(stackView.isHidden ? Constants.hideButtonTextShow : Constants.hideButtonTextHide, for: .normal)
     }
     
     @objc
-    private func addWishButtonPressed() {
+    private func showWishesButtonPressed() {
         present(WishStoringViewController(), animated: true)
     }
 }

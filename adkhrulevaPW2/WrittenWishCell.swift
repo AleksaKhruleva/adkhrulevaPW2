@@ -9,7 +9,8 @@ import Foundation
 import UIKit
 
 final class WrittenWishCell: UITableViewCell {
-    static let reuseId: String = Constants.cellReuseId
+    
+    static let writtenWishReuseId: String = Constants.writtenWishReuseId
     private let wishLabel: UILabel = UILabel()
     
     // MARK: - Lifecycle
@@ -29,17 +30,23 @@ final class WrittenWishCell: UITableViewCell {
     
     private func configureUI() {
         selectionStyle = .none
-        backgroundColor = .clear
+        backgroundColor = .blue
         
         let wrap: UIView = UIView()
-        addSubview(wrap)
         
+        contentView.addSubview(wrap)
+        
+        wrap.translatesAutoresizingMaskIntoConstraints = false
         wrap.backgroundColor = Constants.cellWrapColor
         wrap.layer.cornerRadius = Constants.cellWrapRadius
+
+//        wrap.setHeight(50)
         wrap.pinVertical(to: self, Constants.cellWrapOffsetV)
         wrap.pinHorizontal(to: self, Constants.cellWrapOffsetH)
+        
         wrap.addSubview(wishLabel)
         
+        wishLabel.translatesAutoresizingMaskIntoConstraints = false
         wishLabel.pin(to: wrap, Constants.cellWishLabelOffset)
     }
 }

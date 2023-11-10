@@ -40,16 +40,14 @@ final class CustomSlider: UIView {
             view.translatesAutoresizingMaskIntoConstraints = false
         }
         
-        NSLayoutConstraint.activate([
-            titleView.centerXAnchor.constraint(equalTo: centerXAnchor),
-            titleView.topAnchor.constraint(equalTo: topAnchor, constant: Constants.sliderTitleTop),
-            titleView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constants.sliderTitleLeading),
-            
-            slider.centerXAnchor.constraint(equalTo: centerXAnchor),
-            slider.topAnchor.constraint(equalTo: titleView.bottomAnchor),
-            slider.bottomAnchor.constraint(equalTo: bottomAnchor, constant: Constants.sliderBottom),
-            slider.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constants.sliderLeading)
-        ])
+        titleView.pinCenterX(to: centerXAnchor)
+        titleView.pinTop(to: topAnchor, Constants.sliderTitleTop)
+        titleView.pinLeft(to: leadingAnchor, Constants.sliderTitleLeading)
+        
+        slider.pinCenterX(to: centerXAnchor)
+        slider.pinTop(to: titleView.bottomAnchor)
+        slider.pinBottom(to: bottomAnchor, Constants.sliderBottom)
+        slider.pinLeft(to: leadingAnchor, Constants.sliderLeading)
     }
     
     @objc

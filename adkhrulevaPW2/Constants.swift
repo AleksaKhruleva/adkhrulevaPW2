@@ -26,17 +26,17 @@ enum Constants {
     static let descrTop: CGFloat = 20
     static let descrLeading: CGFloat = 20
     
-    static let buttonWidthMult: Double = 0.7
-    static let buttonHeight: Double = 50
-    static let buttonRadius: CGFloat = 20
-    static let buttonBottom: CGFloat = 20
-    static let buttonTextShow: String = "Show sliders"
-    static let buttonTextHide: String = "Hide sliders"
-    static let buttonTitleFS: CGFloat = 20
+    static let hideButtonWidthMult: Double = 0.7
+    static let hideButtonHeight: Double = 50
+    static let hideButtonRadius: CGFloat = 20
+    static let hideButtonBottom: CGFloat = 20
+    static let hideButtonTextShow: String = "Show sliders"
+    static let hideButtonTextHide: String = "Hide sliders"
+    static let hideButtonTitleFS: CGFloat = 20
     
     static let sliderTitleTop: CGFloat = 10
     static let sliderTitleLeading: CGFloat = 20
-    static let sliderBottom: CGFloat = -10
+    static let sliderBottom: CGFloat = 10
     static let sliderLeading: CGFloat = 20
     static let sliderMin: Double = 0
     static let sliderMax: Double = 1
@@ -56,20 +56,22 @@ enum Constants {
     
     static let tableSections: Int = 2
     static let sectionZero: Int = 0
+    static let sectionZeroRows: Int = 1
     static let sectionOne: Int = 1
-    static let sectionOneRows: Int = 1
     
     static let tableCornerRadius: CGFloat = 16
     static let tableTop: CGFloat = 10
     static let tableBottom: CGFloat = 40
     static let tableHorizontal: CGFloat = 10
     
-    static let cellReuseId: String = "WrittenWishCell"
+    static let writtenWishReuseId: String = "WrittenWishCell"
     static let cellWrapColor: UIColor = .white
-    static let cellWrapRadius: CGFloat = 16
-    static let cellWrapOffsetV: CGFloat = 5
+    static let cellWrapRadius: CGFloat = 7
+    static let cellWrapOffsetV: CGFloat = 50
     static let cellWrapOffsetH: CGFloat = 10
-    static let cellWishLabelOffset: CGFloat = 8
+    static let cellWishLabelOffset: CGFloat = 10
+    
+    static let addWishReuseId: String = "addWishReuseId"
     
     static let colorRange: ClosedRange<CGFloat> = 0...1
     static let opacity: Double = 1.0
