@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		554973562AFE237500748342 /* WishStoringViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 554973552AFE237500748342 /* WishStoringViewController.swift */; };
 		5577B1562ACED6F00008294E /* WishMakerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5577B1552ACED6F00008294E /* WishMakerViewController.swift */; };
 		5577B15C2ACEE04D0008294E /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5577B15B2ACEE04D0008294E /* UIColorExtension.swift */; };
 		5577B15E2ACEE06C0008294E /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5577B15D2ACEE06C0008294E /* Constants.swift */; };
@@ -16,11 +17,11 @@
 		559EF1D62ACDB8210003FE55 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 559EF1D52ACDB8210003FE55 /* Assets.xcassets */; };
 		559EF1D92ACDB8210003FE55 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 559EF1D72ACDB8210003FE55 /* LaunchScreen.storyboard */; };
 		55D0A0562AFB89B2003C7B38 /* UIViewPin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D0A0552AFB89B2003C7B38 /* UIViewPin.swift */; };
-		55D0A0582AFB8CA7003C7B38 /* WishStoringViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D0A0572AFB8CA7003C7B38 /* WishStoringViewController.swift */; };
 		55D0A05A2AFB9FB2003C7B38 /* WrittenWishCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D0A0592AFB9FB2003C7B38 /* WrittenWishCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		554973552AFE237500748342 /* WishStoringViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishStoringViewController.swift; sourceTree = "<group>"; };
 		5577B1552ACED6F00008294E /* WishMakerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishMakerViewController.swift; sourceTree = "<group>"; };
 		5577B15B2ACEE04D0008294E /* UIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
 		5577B15D2ACEE06C0008294E /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -32,7 +33,6 @@
 		559EF1D82ACDB8210003FE55 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		559EF1DA2ACDB8210003FE55 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		55D0A0552AFB89B2003C7B38 /* UIViewPin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewPin.swift; sourceTree = "<group>"; };
-		55D0A0572AFB8CA7003C7B38 /* WishStoringViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = WishStoringViewController.swift; path = ../../.Trash/adkhrulevaPW2/adkhrulevaPW2/WishStoringViewController.swift; sourceTree = "<group>"; };
 		55D0A0592AFB9FB2003C7B38 /* WrittenWishCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WrittenWishCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -69,7 +69,7 @@
 				559EF1CC2ACDB81F0003FE55 /* AppDelegate.swift */,
 				559EF1CE2ACDB81F0003FE55 /* SceneDelegate.swift */,
 				5577B1552ACED6F00008294E /* WishMakerViewController.swift */,
-				55D0A0572AFB8CA7003C7B38 /* WishStoringViewController.swift */,
+				554973552AFE237500748342 /* WishStoringViewController.swift */,
 				5577B15F2ACEE1460008294E /* CustomSliderView.swift */,
 				55D0A0552AFB89B2003C7B38 /* UIViewPin.swift */,
 				5577B15B2ACEE04D0008294E /* UIColorExtension.swift */,
@@ -154,8 +154,8 @@
 			files = (
 				5577B1602ACEE1460008294E /* CustomSliderView.swift in Sources */,
 				559EF1CD2ACDB81F0003FE55 /* AppDelegate.swift in Sources */,
-				55D0A0582AFB8CA7003C7B38 /* WishStoringViewController.swift in Sources */,
 				5577B1562ACED6F00008294E /* WishMakerViewController.swift in Sources */,
+				554973562AFE237500748342 /* WishStoringViewController.swift in Sources */,
 				55D0A05A2AFB9FB2003C7B38 /* WrittenWishCell.swift in Sources */,
 				5577B15C2ACEE04D0008294E /* UIColorExtension.swift in Sources */,
 				55D0A0562AFB89B2003C7B38 /* UIViewPin.swift in Sources */,
