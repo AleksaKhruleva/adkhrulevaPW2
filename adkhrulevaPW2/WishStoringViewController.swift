@@ -16,7 +16,7 @@ final class WishStoringViewController: UIViewController {
     private let tableView: UITableView = UITableView(frame: .zero)
     
     var backgroundColor: UIColor
-    private var wishArray: [String] = ["I wish I could add cells to the table"]
+    private var wishArray: [String] = ["I wish I could add cells to the table I wish I could add cells to the tableI wish I could add cells to the table I wish I could add cells to the table"]
     
     init(backgroundColor: UIColor) {
         self.backgroundColor = backgroundColor
@@ -100,6 +100,7 @@ final class WishStoringViewController: UIViewController {
         view.addSubview(tableView)
         
         tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.rowHeight = UITableView.automaticDimension
         tableView.backgroundColor = .white
         tableView.separatorStyle = .singleLine
         tableView.separatorInset = .zero

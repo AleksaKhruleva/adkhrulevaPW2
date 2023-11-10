@@ -67,19 +67,22 @@ enum Constants {
     
     static let writtenWishReuseId: String = "WrittenWishCell"
     
-    static let cellWrapColor: UIColor = .white
-    static let cellWrapRadius: CGFloat = 7
-    static let cellWrapOffsetV: CGFloat = 50
+    static let cellWrapOffsetV: CGFloat = 10
     static let cellWrapOffsetH: CGFloat = 20
-    static let cellWishLabelOffset: CGFloat = 10
     
     static let wishFieldPlaceholder: String = "I wish..."
     static let wishFieldViewWidth: CGFloat = 20
     static let wishFieldViewHeight: CGFloat = 60
     static let wishFieldTop: CGFloat = 10
     
+    static let wishLabelWidthMult: Double = 1.1
+    
     static let addWishButtonText: String = "Add wish"
     static let addWishButtonTop: CGFloat = 10
+    
+    static let likeButtonImageNormal: String = "heart"
+    static let likeButtonTintColor: UIColor = .systemPink
+    static let likeButtonRight: CGFloat = 10
     
     static let colorRange: ClosedRange<CGFloat> = 0...1
     static let opacity: Double = 1.0
