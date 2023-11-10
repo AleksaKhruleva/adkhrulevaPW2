@@ -127,7 +127,9 @@ final class WishStoringViewController: UIViewController {
                 showAlert()
             } else {
                 wishArray.append(wish)
-                wishArray.sort()
+                wishArray.sort { (lhs: String, rhs: String) -> Bool in
+                    return lhs.lowercased() < rhs.lowercased()
+                }
                 defaults.set(wishArray, forKey: Constants.wishArrayKey)
                 tableView.reloadData()
             }
