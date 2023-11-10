@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		554973782AFE37B400748342 /* WishStoringViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 554973772AFE37B400748342 /* WishStoringViewController.swift */; };
-		5549737C2AFE42F400748342 /* AddWishCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5549737B2AFE42F400748342 /* AddWishCell.swift */; };
 		5577B1562ACED6F00008294E /* WishMakerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5577B1552ACED6F00008294E /* WishMakerViewController.swift */; };
 		5577B15C2ACEE04D0008294E /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5577B15B2ACEE04D0008294E /* UIColorExtension.swift */; };
 		5577B15E2ACEE06C0008294E /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5577B15D2ACEE06C0008294E /* Constants.swift */; };
@@ -23,7 +22,6 @@
 
 /* Begin PBXFileReference section */
 		554973772AFE37B400748342 /* WishStoringViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishStoringViewController.swift; sourceTree = "<group>"; };
-		5549737B2AFE42F400748342 /* AddWishCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddWishCell.swift; sourceTree = "<group>"; };
 		5577B1552ACED6F00008294E /* WishMakerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishMakerViewController.swift; sourceTree = "<group>"; };
 		5577B15B2ACEE04D0008294E /* UIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
 		5577B15D2ACEE06C0008294E /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -73,7 +71,6 @@
 				5577B1552ACED6F00008294E /* WishMakerViewController.swift */,
 				554973772AFE37B400748342 /* WishStoringViewController.swift */,
 				55D0A0592AFB9FB2003C7B38 /* WrittenWishCell.swift */,
-				5549737B2AFE42F400748342 /* AddWishCell.swift */,
 				5577B15F2ACEE1460008294E /* CustomSliderView.swift */,
 				55D0A0552AFB89B2003C7B38 /* UIViewPin.swift */,
 				5577B15B2ACEE04D0008294E /* UIColorExtension.swift */,
@@ -163,7 +160,6 @@
 				5577B15C2ACEE04D0008294E /* UIColorExtension.swift in Sources */,
 				55D0A0562AFB89B2003C7B38 /* UIViewPin.swift in Sources */,
 				559EF1CF2ACDB81F0003FE55 /* SceneDelegate.swift in Sources */,
-				5549737C2AFE42F400748342 /* AddWishCell.swift in Sources */,
 				5577B15E2ACEE06C0008294E /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

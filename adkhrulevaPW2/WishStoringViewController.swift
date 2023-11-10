@@ -8,24 +8,36 @@
 import Foundation
 import UIKit
 
-public var wishArray: [String] = [
-    "I wish I could add cells to the table",
-    "I wish I could add cells to the table",
-    "I wish I could add cells to the table",
-]
-
 final class WishStoringViewController: UIViewController {
     
     private let closeButton: UIButton = UIButton(type: .system)
+    private let wishField: UITextField = UITextField()
+    private let addWishButton: UIButton = UIButton(type: .system)
     private let tableView: UITableView = UITableView(frame: .zero)
     
+    var backgroundColor: UIColor
+    private var wishArray: [String] = ["I wish I could add cells to the table"]
+    
+    init(backgroundColor: UIColor) {
+        self.backgroundColor = backgroundColor
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError(Constants.fatalError)
+    }
+    
     override func viewDidLoad() {
+        wishField.delegate = self
+        tableView.dataSource = self
         configureUI()
     }
     
     private func configureUI() {
-        view.backgroundColor = .white
+        view.backgroundColor = backgroundColor
         configureCloseButton()
+        configureWishField()
+        configureAddWishButton()
         configureTable()
     }
     
@@ -35,45 +47,96 @@ final class WishStoringViewController: UIViewController {
         closeButton.translatesAutoresizingMaskIntoConstraints = false
         closeButton.setTitle(Constants.closeButtonText, for: .normal)
         closeButton.titleLabel?.font = UIFont.systemFont(ofSize: Constants.closeButtonTitleFS, weight: .bold)
-        closeButton.layer.cornerRadius = Constants.hideButtonRadius
+        closeButton.layer.cornerRadius = Constants.buttonCornerRadius
         closeButton.addTarget(self, action: #selector(closeButtonPressed), for: .touchUpInside)
         
         closeButton.pinRight(to: view.trailingAnchor, Constants.closeButtonTrailing)
         closeButton.pinTop(to: view.topAnchor, Constants.closeButtonTop)
     }
     
+    private func configureWishField() {
+        view.addSubview(wishField)
+        
+        wishField.translatesAutoresizingMaskIntoConstraints = false
+        wishField.backgroundColor = .white
+        wishField.layer.cornerRadius = Constants.buttonCornerRadius
+        wishField.placeholder = Constants.wishFieldPlaceholder
+        wishField.returnKeyType = UIReturnKeyType.done
+        
+        wishField.leftView = UIView(frame: CGRect(x: .zero, y: .zero, width: Constants.wishFieldViewWidth, height: Constants.wishFieldViewHeight))
+        wishField.leftViewMode = .always
+        wishField.rightView = UIView(frame: CGRect(x: .zero, y: .zero, width: Constants.wishFieldViewWidth, height: Constants.wishFieldViewHeight))
+        wishField.rightViewMode = .always
+        
+        wishField.setHeight(Constants.buttonHeight)
+        wishField.setWidth(Constants.stackWidth)
+        wishField.pinCenterX(to: view.centerXAnchor)
+        wishField.pinTop(to: closeButton.bottomAnchor, Constants.wishFieldTop)
+    }
+    
+    private func configureAddWishButton() {
+        view.addSubview(addWishButton)
+        
+        addWishButton.translatesAutoresizingMaskIntoConstraints = false
+        //        addWishButton.isEnabled = false
+        addWishButton.setTitle(Constants.addWishButtonText, for: .normal)
+        addWishButton.titleLabel?.font = UIFont.systemFont(ofSize: Constants.buttonTitleFS, weight: .bold)
+        addWishButton.setTitleColor(view.backgroundColor, for: .normal)
+        addWishButton.setTitleColor(.white, for: .highlighted)
+        addWishButton.setTitleColor(.lightGray, for: .disabled)
+        addWishButton.backgroundColor = .white
+        addWishButton.layer.cornerRadius = Constants.buttonCornerRadius
+        addWishButton.addTarget(self, action: #selector(addWishButtonPressed), for: .touchUpInside)
+        
+        addWishButton.setHeight(Constants.buttonHeight)
+        addWishButton.setWidth(Constants.stackWidth)
+        addWishButton.pinCenterX(to: view.centerXAnchor)
+        addWishButton.pinTop(to: wishField.bottomAnchor, Constants.addWishButtonTop)
+    }
+    
     private func configureTable() {
         tableView.register(WrittenWishCell.self, forCellReuseIdentifier: WrittenWishCell.writtenWishReuseId)
-        tableView.register(AddWishCell.self, forCellReuseIdentifier: AddWishCell.addWishReuseId)
         
         view.addSubview(tableView)
         
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.dataSource = self
-        tableView.backgroundColor = .systemPink
-        tableView.separatorStyle = .none
-        tableView.rowHeight = 150
+        tableView.backgroundColor = .white
+        tableView.separatorStyle = .singleLine
+        tableView.separatorInset = .zero
+        //        tableView.rowHeight = Constants.tableRowHeight
         tableView.layer.cornerRadius = Constants.tableCornerRadius
         
-        tableView.pinTop(to: closeButton.bottomAnchor, Constants.tableTop)
+        tableView.setWidth(Constants.stackWidth)
+        tableView.pinCenterX(to: view.centerXAnchor)
+        tableView.pinTop(to: addWishButton.bottomAnchor, Constants.tableTop)
         tableView.pinBottom(to: view, Constants.tableBottom)
-        tableView.pinHorizontal(to: view, Constants.tableHorizontal)
     }
     
     @objc
     private func closeButtonPressed() {
         dismiss(animated: true)
     }
+    
+    @objc
+    private func addWishButtonPressed() {
+        self.view.endEditing(true)
+        if let text = wishField.text {
+            let wish = text.trimmingCharacters(in: .whitespacesAndNewlines)
+            if wish.isEmpty {
+                // TODO: show alert
+            } else {
+                wishArray.append(wish)
+                tableView.reloadData()
+            }
+            wishField.text = String()
+        }
+    }
 }
 
-// MARK: - UITableViewDataSource & UITextFieldDelegate
-extension WishStoringViewController: UITableViewDataSource, UITextFieldDelegate {
+// MARK: - UITableViewDataSource
+extension WishStoringViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if (section == Constants.sectionZero) {
-            return Constants.sectionZeroRows
-        } else {
-            return wishArray.count
-        }
+        return wishArray.count
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -81,18 +144,35 @@ extension WishStoringViewController: UITableViewDataSource, UITextFieldDelegate 
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if (indexPath.section == Constants.sectionZero) {
-            let cell = tableView.dequeueReusableCell(withIdentifier: AddWishCell.addWishReuseId, for: indexPath)
-            guard let addWishCell = cell as? AddWishCell else { return cell }
-            addWishCell.tableView = tableView
-            addWishCell.wishTextField.tag = indexPath.row
-            addWishCell.wishTextField.delegate = self
-            return addWishCell
-        } else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: WrittenWishCell.writtenWishReuseId, for: indexPath)
-            guard let wishCell = cell as? WrittenWishCell else { return cell }
-            wishCell.configure(with: wishArray[indexPath.row])
-            return wishCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: WrittenWishCell.writtenWishReuseId, for: indexPath)
+        guard let wishCell = cell as? WrittenWishCell else { return cell }
+        wishCell.configure(with: wishArray[indexPath.row])
+        return wishCell
+    }
+}
+
+// MARK: - UITableViewDelegate
+extension WishStoringViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        return .delete
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            tableView.beginUpdates()
+            wishArray.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+            tableView.endUpdates()
         }
     }
+    
+}
+
+// MARK: - UITextFieldDelegate
+extension WishStoringViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        addWishButtonPressed()
+        return false
+    }
+    
 }

@@ -29,24 +29,12 @@ final class WrittenWishCell: UITableViewCell {
     }
     
     private func configureUI() {
-        selectionStyle = .none
-        backgroundColor = .blue
-        
-        let wrap: UIView = UIView()
-        
-        contentView.addSubview(wrap)
-        
-        wrap.translatesAutoresizingMaskIntoConstraints = false
-        wrap.backgroundColor = Constants.cellWrapColor
-        wrap.layer.cornerRadius = Constants.cellWrapRadius
-
-//        wrap.setHeight(50)
-        wrap.pinVertical(to: self, Constants.cellWrapOffsetV)
-        wrap.pinHorizontal(to: self, Constants.cellWrapOffsetH)
-        
-        wrap.addSubview(wishLabel)
+        addSubview(wishLabel)
         
         wishLabel.translatesAutoresizingMaskIntoConstraints = false
-        wishLabel.pin(to: wrap, Constants.cellWishLabelOffset)
+        selectionStyle = .none
+        
+        wishLabel.setHeight(Constants.buttonHeight)
+        wishLabel.pinHorizontal(to: self, Constants.cellWrapOffsetH)
     }
 }

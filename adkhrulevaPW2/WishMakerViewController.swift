@@ -13,7 +13,7 @@ final class WishMakerViewController: UIViewController {
     private let descriptionView: UILabel = UILabel()
     private let hideButton: UIButton = UIButton()
     private let stackView: UIStackView = UIStackView()
-    private let addWishButton: UIButton = UIButton(type: .system)
+    private let showWishesButton: UIButton = UIButton(type: .system)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,7 +26,7 @@ final class WishMakerViewController: UIViewController {
         configureTitle()
         configureDescription()
         
-        configureAddWishButton()
+        configureShowWishesButton()
         configureSliders()
         configureHideButton()
     }
@@ -79,7 +79,7 @@ final class WishMakerViewController: UIViewController {
         
         stackView.setWidth(Constants.stackWidth)
         stackView.pinCenterX(to: view.centerXAnchor)
-        stackView.pinBottom(to: addWishButton.topAnchor, Constants.stackBottom)
+        stackView.pinBottom(to: showWishesButton.topAnchor, Constants.stackBottom)
         
         sliderRed.valueChanged = { [weak self] value in
             self?.view.backgroundColor = UIColor(
@@ -93,9 +93,9 @@ final class WishMakerViewController: UIViewController {
             self?.hideButton.setTitleColor(self?.view.backgroundColor ?? .white, for: .normal)
             self?.hideButton.setTitleColor(self?.titleView.textColor, for: .highlighted)
             self?.hideButton.backgroundColor = oppositeColor
-            self?.addWishButton.setTitleColor(self?.view.backgroundColor ?? .white, for: .normal)
-            self?.addWishButton.setTitleColor(self?.titleView.textColor, for: .highlighted)
-            self?.addWishButton.backgroundColor = oppositeColor
+            self?.showWishesButton.setTitleColor(self?.view.backgroundColor ?? .white, for: .normal)
+            self?.showWishesButton.setTitleColor(self?.titleView.textColor, for: .highlighted)
+            self?.showWishesButton.backgroundColor = oppositeColor
             for slider in [sliderRed, sliderGreen, sliderBlue] {
                 slider.tintColor = self?.view.backgroundColor
             }
@@ -112,9 +112,9 @@ final class WishMakerViewController: UIViewController {
             self?.hideButton.setTitleColor(self?.view.backgroundColor ?? .white, for: .normal)
             self?.hideButton.setTitleColor(self?.titleView.textColor, for: .highlighted)
             self?.hideButton.backgroundColor = oppositeColor
-            self?.addWishButton.setTitleColor(self?.view.backgroundColor ?? .white, for: .normal)
-            self?.addWishButton.setTitleColor(self?.titleView.textColor, for: .highlighted)
-            self?.addWishButton.backgroundColor = oppositeColor
+            self?.showWishesButton.setTitleColor(self?.view.backgroundColor ?? .white, for: .normal)
+            self?.showWishesButton.setTitleColor(self?.titleView.textColor, for: .highlighted)
+            self?.showWishesButton.backgroundColor = oppositeColor
             for slider in [sliderRed, sliderGreen, sliderBlue] {
                 slider.tintColor = self?.view.backgroundColor
             }
@@ -132,9 +132,9 @@ final class WishMakerViewController: UIViewController {
             self?.hideButton.setTitleColor(self?.view.backgroundColor ?? .white, for: .normal)
             self?.hideButton.setTitleColor(self?.titleView.textColor, for: .highlighted)
             self?.hideButton.backgroundColor = oppositeColor
-            self?.addWishButton.setTitleColor(self?.view.backgroundColor ?? .white, for: .normal)
-            self?.addWishButton.setTitleColor(self?.titleView.textColor, for: .highlighted)
-            self?.addWishButton.backgroundColor = oppositeColor
+            self?.showWishesButton.setTitleColor(self?.view.backgroundColor ?? .white, for: .normal)
+            self?.showWishesButton.setTitleColor(self?.titleView.textColor, for: .highlighted)
+            self?.showWishesButton.backgroundColor = oppositeColor
             for slider in [sliderRed, sliderGreen, sliderBlue] {
                 slider.tintColor = self?.view.backgroundColor
             }
@@ -146,35 +146,35 @@ final class WishMakerViewController: UIViewController {
         
         hideButton.translatesAutoresizingMaskIntoConstraints = false
         hideButton.setTitle(Constants.hideButtonTextHide, for: .normal)
-        hideButton.titleLabel?.font = UIFont.systemFont(ofSize: Constants.hideButtonTitleFS, weight: .bold)
+        hideButton.titleLabel?.font = UIFont.systemFont(ofSize: Constants.buttonTitleFS, weight: .bold)
         hideButton.setTitleColor(view.backgroundColor, for: .normal)
         hideButton.setTitleColor(titleView.textColor, for: .highlighted)
         hideButton.backgroundColor = titleView.textColor
-        hideButton.layer.cornerRadius = Constants.hideButtonRadius
+        hideButton.layer.cornerRadius = Constants.buttonCornerRadius
         hideButton.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
         
-        hideButton.setHeight(Constants.hideButtonHeight)
+        hideButton.setHeight(Constants.buttonHeight)
         hideButton.setWidth(Constants.stackWidth)
         hideButton.pinCenterX(to: view.centerXAnchor)
         hideButton.pinBottom(to: stackView.topAnchor, Constants.hideButtonBottom)
     }
     
-    private func configureAddWishButton() {
-        view.addSubview(addWishButton)
+    private func configureShowWishesButton() {
+        view.addSubview(showWishesButton)
         
-        addWishButton.translatesAutoresizingMaskIntoConstraints = false
-        addWishButton.setTitle(Constants.addWishButtonText, for: .normal)
-        addWishButton.titleLabel?.font = UIFont.systemFont(ofSize: Constants.hideButtonTitleFS, weight: .bold)
-        addWishButton.setTitleColor(view.backgroundColor, for: .normal)
-        addWishButton.setTitleColor(titleView.textColor, for: .highlighted)
-        addWishButton.backgroundColor = titleView.textColor
-        addWishButton.layer.cornerRadius = Constants.hideButtonRadius
-        addWishButton.addTarget(self, action: #selector(showWishesButtonPressed), for: .touchUpInside)
+        showWishesButton.translatesAutoresizingMaskIntoConstraints = false
+        showWishesButton.setTitle(Constants.showWishesButtonText, for: .normal)
+        showWishesButton.titleLabel?.font = UIFont.systemFont(ofSize: Constants.buttonTitleFS, weight: .bold)
+        showWishesButton.setTitleColor(view.backgroundColor, for: .normal)
+        showWishesButton.setTitleColor(titleView.textColor, for: .highlighted)
+        showWishesButton.backgroundColor = titleView.textColor
+        showWishesButton.layer.cornerRadius = Constants.buttonCornerRadius
+        showWishesButton.addTarget(self, action: #selector(showWishesButtonPressed), for: .touchUpInside)
         
-        addWishButton.setHeight(Constants.hideButtonHeight)
-        addWishButton.setWidth(Constants.stackWidth)
-        addWishButton.pinCenterX(to: view.centerXAnchor)
-        addWishButton.pinBottom(to: view, Constants.addWishButtonBottom)
+        showWishesButton.setHeight(Constants.buttonHeight)
+        showWishesButton.setWidth(Constants.stackWidth)
+        showWishesButton.pinCenterX(to: view.centerXAnchor)
+        showWishesButton.pinBottom(to: view, Constants.showWishesButtonBottom)
     }
     
     @objc
@@ -185,6 +185,8 @@ final class WishMakerViewController: UIViewController {
     
     @objc
     private func showWishesButtonPressed() {
-        present(WishStoringViewController(), animated: true)
+        let oppositeColor = UIColor.oppositeColor(baseColor: view.backgroundColor ?? .random())
+        let vc = WishStoringViewController(backgroundColor: oppositeColor)
+        present(vc, animated: true)
     }
 }
