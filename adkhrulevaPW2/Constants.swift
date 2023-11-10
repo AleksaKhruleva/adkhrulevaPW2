@@ -65,6 +65,8 @@ enum Constants {
     static let tableHorizontal: CGFloat = 10
     static let tableRowHeight: CGFloat = 80
     
+    static let wishArrayKey: String = "wishArray"
+    
     static let writtenWishReuseId: String = "WrittenWishCell"
     
     static let cellWrapOffsetV: CGFloat = 10
@@ -81,8 +83,13 @@ enum Constants {
     static let addWishButtonTop: CGFloat = 10
     
     static let likeButtonImageNormal: String = "heart"
+    static let likeButtonImageHighlighted: String = "heart.fill"
     static let likeButtonTintColor: UIColor = .systemPink
     static let likeButtonRight: CGFloat = 10
+    
+    static let alertTitle: String = "Error"
+    static let alertMessage: String = "To add a wish, the text of the wish must contain some characters other than spaces."
+    static let alertActionOK: String = "OK"
     
     static let colorRange: ClosedRange<CGFloat> = 0...1
     static let opacity: Double = 1.0

@@ -14,9 +14,10 @@ final class WishStoringViewController: UIViewController {
     private let wishField: UITextField = UITextField()
     private let addWishButton: UIButton = UIButton(type: .system)
     private let tableView: UITableView = UITableView(frame: .zero)
+    private let defaults = UserDefaults.standard
     
+    private var wishArray: [String] = []
     var backgroundColor: UIColor
-    private var wishArray: [String] = ["I wish I could add cells to the table I wish I could add cells to the tableI wish I could add cells to the table I wish I could add cells to the table"]
     
     init(backgroundColor: UIColor) {
         self.backgroundColor = backgroundColor
@@ -28,6 +29,7 @@ final class WishStoringViewController: UIViewController {
     }
     
     override func viewDidLoad() {
+        wishArray = defaults.array(forKey: Constants.wishArrayKey) as? [String] ?? []
         wishField.delegate = self
         tableView.dataSource = self
         configureUI()
@@ -64,8 +66,8 @@ final class WishStoringViewController: UIViewController {
         wishField.returnKeyType = UIReturnKeyType.done
         
         wishField.leftView = UIView(frame: CGRect(x: .zero, y: .zero, width: Constants.wishFieldViewWidth, height: Constants.wishFieldViewHeight))
-        wishField.leftViewMode = .always
         wishField.rightView = UIView(frame: CGRect(x: .zero, y: .zero, width: Constants.wishFieldViewWidth, height: Constants.wishFieldViewHeight))
+        wishField.leftViewMode = .always
         wishField.rightViewMode = .always
         
         wishField.setHeight(Constants.buttonHeight)
@@ -78,7 +80,6 @@ final class WishStoringViewController: UIViewController {
         view.addSubview(addWishButton)
         
         addWishButton.translatesAutoresizingMaskIntoConstraints = false
-        //        addWishButton.isEnabled = false
         addWishButton.setTitle(Constants.addWishButtonText, for: .normal)
         addWishButton.titleLabel?.font = UIFont.systemFont(ofSize: Constants.buttonTitleFS, weight: .bold)
         addWishButton.setTitleColor(view.backgroundColor, for: .normal)
@@ -104,7 +105,6 @@ final class WishStoringViewController: UIViewController {
         tableView.backgroundColor = .white
         tableView.separatorStyle = .singleLine
         tableView.separatorInset = .zero
-        //        tableView.rowHeight = Constants.tableRowHeight
         tableView.layer.cornerRadius = Constants.tableCornerRadius
         
         tableView.setWidth(Constants.stackWidth)
@@ -124,13 +124,21 @@ final class WishStoringViewController: UIViewController {
         if let text = wishField.text {
             let wish = text.trimmingCharacters(in: .whitespacesAndNewlines)
             if wish.isEmpty {
-                // TODO: show alert
+                showAlert()
             } else {
                 wishArray.append(wish)
+                wishArray.sort()
+                defaults.set(wishArray, forKey: Constants.wishArrayKey)
                 tableView.reloadData()
             }
             wishField.text = String()
         }
+    }
+    
+    private func showAlert() {
+        let alert = UIAlertController(title: Constants.alertTitle, message: Constants.alertMessage, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: Constants.alertActionOK, style: .default))
+        self.present(alert, animated: true, completion: nil)
     }
 }
 
@@ -162,6 +170,7 @@ extension WishStoringViewController: UITableViewDelegate {
         if editingStyle == .delete {
             tableView.beginUpdates()
             wishArray.remove(at: indexPath.row)
+            defaults.set(wishArray, forKey: Constants.wishArrayKey)
             tableView.deleteRows(at: [indexPath], with: .fade)
             tableView.endUpdates()
         }
@@ -175,5 +184,4 @@ extension WishStoringViewController: UITextFieldDelegate {
         addWishButtonPressed()
         return false
     }
-    
 }
