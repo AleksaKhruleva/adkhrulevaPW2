@@ -5,7 +5,6 @@
 //  Created by Aleksa Khruleva on 08.11.2023.
 //
 
-import Foundation
 import UIKit
 
 final class WrittenWishCell: UITableViewCell {
@@ -13,7 +12,6 @@ final class WrittenWishCell: UITableViewCell {
     static let writtenWishReuseId: String = Constants.writtenWishReuseId
     private let wishLabel: UILabel = UILabel()
     
-    // MARK: - Lifecycle
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         configureUI()

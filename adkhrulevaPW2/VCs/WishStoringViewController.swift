@@ -5,7 +5,6 @@
 //  Created by Aleksa Khruleva on 08.11.2023.
 //
 
-import Foundation
 import UIKit
 
 final class WishStoringViewController: UIViewController {

@@ -29,7 +29,7 @@ enum Constants {
     static let buttonCornerRadius: CGFloat = 20
     static let buttonTitleFS: CGFloat = 20
     
-    static let hideButtonBottom: CGFloat = 20
+    static let hideButtonBottom: CGFloat = 10
     static let hideButtonTextShow: String = "Show sliders"
     static let hideButtonTextHide: String = "Hide sliders"
     
@@ -40,13 +40,13 @@ enum Constants {
     static let sliderMin: Double = 0
     static let sliderMax: Double = 1
     
-    static let stackBottom: CGFloat = 20
+    static let stackBottom: CGFloat = 10
     static let stackLeading: CGFloat = 20
     static let stackRadius: CGFloat = 20
     static let stackWidth: CGFloat = UIScreen.main.bounds.width / 1.1
     
     static let showWishesButtonText: String = "My wishes"
-    static let showWishesButtonBottom: CGFloat = 20
+    static let showWishesButtonBottom: CGFloat = 10
     
     static let scheduleButtonText: String = "Schedule wish granting"
     static let scheduleButtonBottom: CGFloat = 40

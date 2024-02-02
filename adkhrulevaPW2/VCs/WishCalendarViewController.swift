@@ -23,14 +23,22 @@ final class WishCalendarViewController: UIViewController, UICollectionViewDelega
         collectionView.backgroundColor = .white
         collectionView.alwaysBounceVertical = true
         collectionView.showsVerticalScrollIndicator = false
-        collectionView.contentInset = ConstCalendar.contentInset
-        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
+//        collectionView.contentInset = UIEdgeInsets()
+        
+        if let layout = collectionView.collectionViewLayout as?
+            UICollectionViewFlowLayout {
+            layout.minimumInteritemSpacing = 0
+            layout.minimumLineSpacing = 0
+            layout.invalidateLayout()
+        }
+        
+        collectionView.register(WishEventCell.self, forCellWithReuseIdentifier: WishEventCell.reuseIdentifier)
+        
         view.addSubview(collectionView)
         collectionView.pinHorizontal(to: view)
         collectionView.pinBottom(to: view.safeAreaLayoutGuide.bottomAnchor)
-        collectionView.pinTop(to: view.safeAreaLayoutGuide.topAnchor, ConstCalendar.collectionTop)
+        collectionView.pinTop(to: view.safeAreaLayoutGuide.topAnchor, 0)
     }
-    
 }
 
 // MARK: - UICollectionViewDataSource
@@ -40,8 +48,19 @@ extension WishCalendarViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
-        cell.backgroundColor = .blue
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: WishEventCell.reuseIdentifier, for: indexPath)
+        
+        guard let wishEventCell = cell as? WishEventCell else {
+            return cell
+        }
+        
+        wishEventCell.configure(with: WishEventModel(
+            title: "Test",
+            description: "Test description",
+            startDate: "Start date",
+            endDate: "End date"
+        ))
+        
         return cell
     }
 }
@@ -49,7 +68,7 @@ extension WishCalendarViewController: UICollectionViewDataSource {
 // MARK: - UICollectionViewDelegateFlowLayout
 extension WishCalendarViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: collectionView.bounds.width - 10, height: 100)
+        return CGSize(width: collectionView.bounds.width - 10, height: 110)
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

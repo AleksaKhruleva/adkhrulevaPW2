@@ -40,6 +40,10 @@ final class CustomSlider: UIView {
             view.translatesAutoresizingMaskIntoConstraints = false
         }
         
+        let config = UIImage.SymbolConfiguration(textStyle: .title1)
+        let image = UIImage(systemName: "play.fill", withConfiguration: config)
+        slider.setThumbImage(image, for: .normal)
+        
         titleView.pinCenterX(to: centerXAnchor)
         titleView.pinTop(to: topAnchor, Constants.sliderTitleTop)
         titleView.pinLeft(to: leadingAnchor, Constants.sliderTitleLeading)
