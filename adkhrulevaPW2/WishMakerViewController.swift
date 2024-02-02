@@ -84,63 +84,49 @@ final class WishMakerViewController: UIViewController {
         stackView.pinBottom(to: showWishesButton.topAnchor, Constants.stackBottom)
         
         sliderRed.valueChanged = { [weak self] value in
-            self?.view.backgroundColor = UIColor(
-                red: value,
-                blue: Double(sliderBlue.slider.value),
-                green: Double(sliderGreen.slider.value)
-            )
-            let oppositeColor = UIColor.oppositeColor(baseColor: self?.view.backgroundColor ?? .white)
-            self?.titleView.textColor = oppositeColor
-            self?.descriptionView.textColor = oppositeColor
-            self?.hideButton.setTitleColor(self?.view.backgroundColor ?? .white, for: .normal)
-            self?.hideButton.setTitleColor(self?.titleView.textColor, for: .highlighted)
-            self?.hideButton.backgroundColor = oppositeColor
-            self?.showWishesButton.setTitleColor(self?.view.backgroundColor ?? .white, for: .normal)
-            self?.showWishesButton.setTitleColor(self?.titleView.textColor, for: .highlighted)
-            self?.showWishesButton.backgroundColor = oppositeColor
+            let color = UIColor(red: value, blue: Double(sliderBlue.slider.value), green: Double(sliderGreen.slider.value))
+            self?.updateUI(viewBackgroundColor: color)
             for slider in [sliderRed, sliderGreen, sliderBlue] {
                 slider.tintColor = self?.view.backgroundColor
             }
         }
         
         sliderGreen.valueChanged = { [weak self] value in
-            self?.view.backgroundColor = UIColor(
-                red: Double(sliderRed.slider.value),
-                blue: Double(sliderBlue.slider.value),
-                green: value)
-            let oppositeColor = UIColor.oppositeColor(baseColor: self?.view.backgroundColor ?? .white)
-            self?.titleView.textColor = oppositeColor
-            self?.descriptionView.textColor = oppositeColor
-            self?.hideButton.setTitleColor(self?.view.backgroundColor ?? .white, for: .normal)
-            self?.hideButton.setTitleColor(self?.titleView.textColor, for: .highlighted)
-            self?.hideButton.backgroundColor = oppositeColor
-            self?.showWishesButton.setTitleColor(self?.view.backgroundColor ?? .white, for: .normal)
-            self?.showWishesButton.setTitleColor(self?.titleView.textColor, for: .highlighted)
-            self?.showWishesButton.backgroundColor = oppositeColor
+            let color = UIColor(red: Double(sliderRed.slider.value), blue: Double(sliderBlue.slider.value), green: value)
+            self?.updateUI(viewBackgroundColor: color)
             for slider in [sliderRed, sliderGreen, sliderBlue] {
                 slider.tintColor = self?.view.backgroundColor
             }
         }
         
         sliderBlue.valueChanged = { [weak self] value in
-            self?.view.backgroundColor = UIColor(
-                red: Double(sliderRed.slider.value),
-                blue: value,
-                green: Double(sliderGreen.slider.value)
-            )
-            let oppositeColor = UIColor.oppositeColor(baseColor: self?.view.backgroundColor ?? .white)
-            self?.titleView.textColor = oppositeColor
-            self?.descriptionView.textColor = oppositeColor
-            self?.hideButton.setTitleColor(self?.view.backgroundColor ?? .white, for: .normal)
-            self?.hideButton.setTitleColor(self?.titleView.textColor, for: .highlighted)
-            self?.hideButton.backgroundColor = oppositeColor
-            self?.showWishesButton.setTitleColor(self?.view.backgroundColor ?? .white, for: .normal)
-            self?.showWishesButton.setTitleColor(self?.titleView.textColor, for: .highlighted)
-            self?.showWishesButton.backgroundColor = oppositeColor
+            let color = UIColor(red: Double(sliderRed.slider.value), blue: value, green: Double(sliderGreen.slider.value))
+            self?.updateUI(viewBackgroundColor: color)
             for slider in [sliderRed, sliderGreen, sliderBlue] {
                 slider.tintColor = self?.view.backgroundColor
             }
         }
+    }
+    
+    func updateUI(viewBackgroundColor: UIColor) {
+        let oppositeColor = UIColor.oppositeColor(baseColor: viewBackgroundColor)
+        view.backgroundColor = viewBackgroundColor
+        titleView.textColor = oppositeColor
+        descriptionView.textColor = oppositeColor
+        for button in [self.hideButton, self.showWishesButton, self.scheduleButton] {
+            updateButton(
+                button: button,
+                titleColorNormal: viewBackgroundColor,
+                titleColorHighlighted: oppositeColor,
+                backgroundColor: oppositeColor
+            )
+        }
+    }
+    
+    func updateButton(button: UIButton, titleColorNormal: UIColor, titleColorHighlighted: UIColor, backgroundColor: UIColor) {
+        button.setTitleColor(titleColorNormal, for: .normal)
+        button.setTitleColor(titleColorHighlighted, for: .highlighted)
+        button.backgroundColor = backgroundColor
     }
     
     private func configureHideButton() {
