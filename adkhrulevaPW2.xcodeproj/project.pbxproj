@@ -12,6 +12,7 @@
 		5577B15C2ACEE04D0008294E /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5577B15B2ACEE04D0008294E /* UIColorExtension.swift */; };
 		5577B15E2ACEE06C0008294E /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5577B15D2ACEE06C0008294E /* Constants.swift */; };
 		5577B1602ACEE1460008294E /* CustomSliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5577B15F2ACEE1460008294E /* CustomSliderView.swift */; };
+		55951E532B6D935B0090B6C4 /* WishCalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55951E522B6D935B0090B6C4 /* WishCalendarViewController.swift */; };
 		559EF1CD2ACDB81F0003FE55 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559EF1CC2ACDB81F0003FE55 /* AppDelegate.swift */; };
 		559EF1CF2ACDB81F0003FE55 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559EF1CE2ACDB81F0003FE55 /* SceneDelegate.swift */; };
 		559EF1D62ACDB8210003FE55 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 559EF1D52ACDB8210003FE55 /* Assets.xcassets */; };
@@ -26,6 +27,7 @@
 		5577B15B2ACEE04D0008294E /* UIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
 		5577B15D2ACEE06C0008294E /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		5577B15F2ACEE1460008294E /* CustomSliderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSliderView.swift; sourceTree = "<group>"; };
+		55951E522B6D935B0090B6C4 /* WishCalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishCalendarViewController.swift; sourceTree = "<group>"; };
 		559EF1C92ACDB81F0003FE55 /* adkhrulevaPW2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = adkhrulevaPW2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		559EF1CC2ACDB81F0003FE55 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		559EF1CE2ACDB81F0003FE55 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -47,6 +49,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		55951E542B6D93650090B6C4 /* VCs */ = {
+			isa = PBXGroup;
+			children = (
+				5577B1552ACED6F00008294E /* WishMakerViewController.swift */,
+				554973772AFE37B400748342 /* WishStoringViewController.swift */,
+				55951E522B6D935B0090B6C4 /* WishCalendarViewController.swift */,
+			);
+			path = VCs;
+			sourceTree = "<group>";
+		};
+		55951E552B6D93810090B6C4 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				55D0A0552AFB89B2003C7B38 /* UIViewPin.swift */,
+				5577B15B2ACEE04D0008294E /* UIColorExtension.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		559EF1C02ACDB81F0003FE55 = {
 			isa = PBXGroup;
 			children = (
@@ -68,12 +89,10 @@
 			children = (
 				559EF1CC2ACDB81F0003FE55 /* AppDelegate.swift */,
 				559EF1CE2ACDB81F0003FE55 /* SceneDelegate.swift */,
-				5577B1552ACED6F00008294E /* WishMakerViewController.swift */,
-				554973772AFE37B400748342 /* WishStoringViewController.swift */,
-				55D0A0592AFB9FB2003C7B38 /* WrittenWishCell.swift */,
+				55951E542B6D93650090B6C4 /* VCs */,
+				55951E552B6D93810090B6C4 /* Extensions */,
 				5577B15F2ACEE1460008294E /* CustomSliderView.swift */,
-				55D0A0552AFB89B2003C7B38 /* UIViewPin.swift */,
-				5577B15B2ACEE04D0008294E /* UIColorExtension.swift */,
+				55D0A0592AFB9FB2003C7B38 /* WrittenWishCell.swift */,
 				5577B15D2ACEE06C0008294E /* Constants.swift */,
 				559EF1D52ACDB8210003FE55 /* Assets.xcassets */,
 				559EF1D72ACDB8210003FE55 /* LaunchScreen.storyboard */,
@@ -154,6 +173,7 @@
 			files = (
 				554973782AFE37B400748342 /* WishStoringViewController.swift in Sources */,
 				5577B1602ACEE1460008294E /* CustomSliderView.swift in Sources */,
+				55951E532B6D935B0090B6C4 /* WishCalendarViewController.swift in Sources */,
 				559EF1CD2ACDB81F0003FE55 /* AppDelegate.swift in Sources */,
 				5577B1562ACED6F00008294E /* WishMakerViewController.swift in Sources */,
 				55D0A05A2AFB9FB2003C7B38 /* WrittenWishCell.swift in Sources */,

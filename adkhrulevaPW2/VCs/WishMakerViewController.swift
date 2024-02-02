@@ -185,7 +185,7 @@ final class WishMakerViewController: UIViewController {
     
     @objc
     private func buttonPressed() {
-        stackView.isHidden = !stackView.isHidden
+        stackView.isHidden.toggle()
         hideButton.setTitle(stackView.isHidden ? Constants.hideButtonTextShow : Constants.hideButtonTextHide, for: .normal)
     }
     
@@ -198,5 +198,7 @@ final class WishMakerViewController: UIViewController {
     
     @objc
     private func scheduleButtonPressed() {
+        let vc = WishCalendarViewController()
+        navigationController?.pushViewController(vc, animated: false)
     }
 }
