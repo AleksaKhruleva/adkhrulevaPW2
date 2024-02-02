@@ -47,7 +47,10 @@ enum Constants {
     static let stackWidth: CGFloat = UIScreen.main.bounds.width / 1.1
     
     static let showWishesButtonText: String = "My wishes"
-    static let showWishesButtonBottom: CGFloat = 50
+    static let showWishesButtonBottom: CGFloat = 20
+    
+    static let scheduleButtonText: String = "Schedule wish granting"
+    static let scheduleButtonBottom: CGFloat = 40
     
     static let closeButtonText: String = "Close"
     static let closeButtonTitleFS: CGFloat = 16

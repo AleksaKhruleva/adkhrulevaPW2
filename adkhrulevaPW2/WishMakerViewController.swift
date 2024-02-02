@@ -11,9 +11,10 @@ final class WishMakerViewController: UIViewController {
     
     private let titleView: UILabel = UILabel()
     private let descriptionView: UILabel = UILabel()
-    private let hideButton: UIButton = UIButton()
+    private let hideButton: UIButton = UIButton(type: .system)
     private let stackView: UIStackView = UIStackView()
     private let showWishesButton: UIButton = UIButton(type: .system)
+    private let scheduleButton: UIButton = UIButton(type: .system)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,6 +27,7 @@ final class WishMakerViewController: UIViewController {
         configureTitle()
         configureDescription()
         
+        configureScheduleButton()
         configureShowWishesButton()
         configureSliders()
         configureHideButton()
@@ -174,7 +176,25 @@ final class WishMakerViewController: UIViewController {
         showWishesButton.setHeight(Constants.buttonHeight)
         showWishesButton.setWidth(Constants.stackWidth)
         showWishesButton.pinCenterX(to: view.centerXAnchor)
-        showWishesButton.pinBottom(to: view, Constants.showWishesButtonBottom)
+        showWishesButton.pinBottom(to: scheduleButton.topAnchor, Constants.showWishesButtonBottom)
+    }
+    
+    private func configureScheduleButton() {
+        view.addSubview(scheduleButton)
+        
+        scheduleButton.translatesAutoresizingMaskIntoConstraints = false
+        scheduleButton.setTitle(Constants.scheduleButtonText, for: .normal)
+        scheduleButton.titleLabel?.font = UIFont.systemFont(ofSize: Constants.buttonTitleFS, weight: .bold)
+        scheduleButton.setTitleColor(view.backgroundColor, for: .normal)
+        scheduleButton.setTitleColor(titleView.textColor, for: .highlighted)
+        scheduleButton.backgroundColor = titleView.textColor
+        scheduleButton.layer.cornerRadius = Constants.buttonCornerRadius
+        scheduleButton.addTarget(self, action: #selector(scheduleButtonPressed), for: .touchUpInside)
+        
+        scheduleButton.setHeight(Constants.buttonHeight)
+        scheduleButton.setWidth(Constants.stackWidth)
+        scheduleButton.pinCenterX(to: view.centerXAnchor)
+        scheduleButton.pinBottom(to: view, Constants.scheduleButtonBottom)
     }
     
     @objc
@@ -188,5 +208,9 @@ final class WishMakerViewController: UIViewController {
         let oppositeColor = UIColor.oppositeColor(baseColor: view.backgroundColor ?? .random())
         let vc = WishStoringViewController(backgroundColor: oppositeColor)
         present(vc, animated: true)
+    }
+    
+    @objc
+    private func scheduleButtonPressed() {
     }
 }
