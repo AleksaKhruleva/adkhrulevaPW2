@@ -18,6 +18,7 @@ final class WishStoringViewController: UIViewController {
     private var wishArray: [String] = []
     
     override func viewDidLoad() {
+        super.viewDidLoad()
         wishArray = defaults.array(forKey: Constants.wishArrayKey) as? [String] ?? []
         wishField.delegate = self
         tableView.dataSource = self
@@ -97,6 +98,7 @@ final class WishStoringViewController: UIViewController {
         tableView.backgroundColor = .white
         tableView.separatorStyle = .singleLine
         tableView.separatorInset = .zero
+        tableView.showsVerticalScrollIndicator = false
         tableView.layer.cornerRadius = Constants.tableCornerRadius
         
         tableView.setWidth(Constants.stackWidth)
@@ -169,7 +171,6 @@ extension WishStoringViewController: UITableViewDelegate {
             tableView.endUpdates()
         }
     }
-    
 }
 
 // MARK: - UITextFieldDelegate

@@ -36,7 +36,6 @@ final class CalendarManager: CalendarManaging {
     private func create(eventModel: CalendarEventModel, completion: ((Bool) -> Void)?) {
         let createEvent: EKEventStoreRequestAccessCompletionHandler = { [weak self] (granted, error) in
             guard granted, error == nil, let self else {
-                print("ABOBA")
                 completion?(false)
                 return
             }

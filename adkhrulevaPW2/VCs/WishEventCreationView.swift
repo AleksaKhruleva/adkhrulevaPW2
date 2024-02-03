@@ -13,26 +13,28 @@ final class WishEventCreationView: UIViewController {
     
     private let closeButton: UIButton = UIButton(type: .system)
     private let titleField: UITextField = UITextField()
+    private let hintLabel: UILabel = UILabel()
+    private let tableView: UITableView = UITableView(frame: .zero)
     private let notesField: UITextField = UITextField()
     private let startDateLabel: UILabel = UILabel()
     private let startDatePicker: UIDatePicker = UIDatePicker(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
     private let endDateLabel: UILabel = UILabel()
     private let endDatePicker: UIDatePicker = UIDatePicker(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
     private let addEventButton: UIButton = UIButton(type: .system)
+    private let defaults = UserDefaults.standard
+    
+    private var wishArray: [String] = []
     
     var didSelectItem: ((_ item: WishEvent) -> Void)?
-    
-    init() {
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        wishArray = defaults.array(forKey: Constants.wishArrayKey) as? [String] ?? []
+        tableView.dataSource = self
+        tableView.delegate = self
+        titleField.delegate = self
+        notesField.delegate = self
         configureUI()
     }
     
@@ -41,7 +43,9 @@ final class WishEventCreationView: UIViewController {
         view.backgroundColor = Vars.oppositeBackgroundColor
         configureCloseButton()
         configureTitleField()
-        configurenotesField()
+        configureHintLable()
+        configureTable()
+        configureNotesField()
         configureStartDatePicker()
         configureStartDateLabel()
         configureEndDatePicker()
@@ -85,7 +89,42 @@ final class WishEventCreationView: UIViewController {
         titleField.pinTop(to: closeButton.bottomAnchor, 10)
     }
     
-    private func configurenotesField() {
+    private func configureHintLable() {
+        view.addSubview(hintLabel)
+        
+        hintLabel.translatesAutoresizingMaskIntoConstraints = false
+        hintLabel.text = "Come up with a new wish or select from saved ones:"
+        hintLabel.textColor = .white
+        hintLabel.font = UIFont.systemFont(ofSize: 18)
+        hintLabel.lineBreakMode = .byWordWrapping
+        hintLabel.numberOfLines = 0
+        
+        hintLabel.setWidth(Constants.stackWidth)
+        hintLabel.pinLeft(to: view.leadingAnchor, 20)
+        hintLabel.pinTop(to: titleField.bottomAnchor, 10)
+    }
+    
+    private func configureTable() {
+        tableView.register(WrittenWishCell.self, forCellReuseIdentifier: WrittenWishCell.writtenWishReuseId)
+        
+        view.addSubview(tableView)
+        
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.backgroundColor = .white
+        tableView.separatorStyle = .singleLine
+        tableView.separatorInset = .zero
+        tableView.allowsSelection = true
+        tableView.showsVerticalScrollIndicator = false
+        tableView.layer.cornerRadius = Constants.tableCornerRadius
+        
+        tableView.setWidth(Constants.stackWidth)
+        tableView.setHeight(100)
+        tableView.pinCenterX(to: view.centerXAnchor)
+        tableView.pinTop(to: hintLabel.bottomAnchor, 10)
+    }
+    
+    private func configureNotesField() {
         view.addSubview(notesField)
         
         notesField.translatesAutoresizingMaskIntoConstraints = false
@@ -102,7 +141,7 @@ final class WishEventCreationView: UIViewController {
         notesField.setHeight(Constants.buttonHeight)
         notesField.setWidth(Constants.stackWidth)
         notesField.pinCenterX(to: view.centerXAnchor)
-        notesField.pinTop(to: titleField.bottomAnchor, 10)
+        notesField.pinTop(to: tableView.bottomAnchor, 10)
     }
     
     private func configureStartDateLabel() {
@@ -224,3 +263,35 @@ final class WishEventCreationView: UIViewController {
     }
 }
 
+// MARK: - UITableViewDataSource
+extension WishEventCreationView: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return wishArray.count
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return Constants.tableSections
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: WrittenWishCell.writtenWishReuseId, for: indexPath)
+        guard let wishCell = cell as? WrittenWishCell else { return cell }
+        wishCell.configure(with: wishArray[indexPath.row])
+        return wishCell
+    }
+}
+
+// MARK: - UITableViewDelegate
+extension WishEventCreationView: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        titleField.text = wishArray[indexPath.row]
+    }
+}
+
+// MARK: - UITextFieldDelegate
+extension WishEventCreationView: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        view.endEditing(true)
+        return false
+    }
+}
