@@ -24,6 +24,7 @@ final class WishEventCreationView: UIViewController {
     private let defaults = UserDefaults.standard
     
     private var wishArray: [String] = []
+    private var filteredWishArray: [String] = []
     
     var didSelectItem: ((_ item: WishEvent) -> Void)?
     
@@ -31,9 +32,11 @@ final class WishEventCreationView: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         wishArray = defaults.array(forKey: Constants.wishArrayKey) as? [String] ?? []
+        filteredWishArray = wishArray
         tableView.dataSource = self
         tableView.delegate = self
         titleField.delegate = self
+        titleField.addTarget(self, action: #selector(valueChanged), for: .allEditingEvents)
         notesField.delegate = self
         configureUI()
     }
@@ -119,7 +122,7 @@ final class WishEventCreationView: UIViewController {
         tableView.layer.cornerRadius = Constants.tableCornerRadius
         
         tableView.setWidth(Constants.stackWidth)
-        tableView.setHeight(100)
+        tableView.setHeight(122)
         tableView.pinCenterX(to: view.centerXAnchor)
         tableView.pinTop(to: hintLabel.bottomAnchor, 10)
     }
@@ -261,12 +264,23 @@ final class WishEventCreationView: UIViewController {
         
         
     }
+    
+    @objc func valueChanged(sender: UITextField) {
+        if let text = titleField.text {
+            if (text == "") {
+                filteredWishArray = wishArray
+            } else {
+                filteredWishArray = wishArray.filter({ $0.lowercased().contains(text.lowercased()) })
+            }
+            tableView.reloadData()
+        }
+    }
 }
 
 // MARK: - UITableViewDataSource
 extension WishEventCreationView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return wishArray.count
+        return filteredWishArray.count
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -276,7 +290,7 @@ extension WishEventCreationView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: WrittenWishCell.writtenWishReuseId, for: indexPath)
         guard let wishCell = cell as? WrittenWishCell else { return cell }
-        wishCell.configure(with: wishArray[indexPath.row])
+        wishCell.configure(with: filteredWishArray[indexPath.row])
         return wishCell
     }
 }
@@ -284,7 +298,7 @@ extension WishEventCreationView: UITableViewDataSource {
 // MARK: - UITableViewDelegate
 extension WishEventCreationView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        titleField.text = wishArray[indexPath.row]
+        titleField.text = filteredWishArray[indexPath.row]
     }
 }
 
