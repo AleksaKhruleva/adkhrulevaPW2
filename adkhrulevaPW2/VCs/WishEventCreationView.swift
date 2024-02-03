@@ -9,20 +9,20 @@ import UIKit
 
 final class WishEventCreationView: UIViewController {
     
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    
     private let closeButton: UIButton = UIButton(type: .system)
     private let titleField: UITextField = UITextField()
-    private let descriptionField: UITextField = UITextField()
+    private let notesField: UITextField = UITextField()
     private let startDateLabel: UILabel = UILabel()
     private let startDatePicker: UIDatePicker = UIDatePicker(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
     private let endDateLabel: UILabel = UILabel()
     private let endDatePicker: UIDatePicker = UIDatePicker(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
     private let addEventButton: UIButton = UIButton(type: .system)
     
-    var didSelectItem: ((_ item: [WishEventModel]) -> Void)?
-    private var eventArray: [WishEventModel]
+    var didSelectItem: ((_ item: WishEvent) -> Void)?
     
-    init(eventArray: [WishEventModel]) {
-        self.eventArray = eventArray
+    init() {
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -36,7 +36,7 @@ final class WishEventCreationView: UIViewController {
         view.backgroundColor = .systemPink
         configureCloseButton()
         configureTitleField()
-        configureDescriptionField()
+        configurenotesField()
         configureStartDatePicker()
         configureStartDateLabel()
         configureEndDatePicker()
@@ -78,24 +78,24 @@ final class WishEventCreationView: UIViewController {
         titleField.pinTop(to: closeButton.bottomAnchor, 10)
     }
     
-    private func configureDescriptionField() {
-        view.addSubview(descriptionField)
+    private func configurenotesField() {
+        view.addSubview(notesField)
         
-        descriptionField.translatesAutoresizingMaskIntoConstraints = false
-        descriptionField.backgroundColor = .white
-        descriptionField.layer.cornerRadius = Constants.buttonCornerRadius
-        descriptionField.placeholder = "Description..."
-        descriptionField.returnKeyType = UIReturnKeyType.done
+        notesField.translatesAutoresizingMaskIntoConstraints = false
+        notesField.backgroundColor = .white
+        notesField.layer.cornerRadius = Constants.buttonCornerRadius
+        notesField.placeholder = "Notes..."
+        notesField.returnKeyType = UIReturnKeyType.done
         
-        descriptionField.leftView = UIView(frame: CGRect(x: .zero, y: .zero, width: Constants.wishFieldViewWidth, height: Constants.wishFieldViewHeight))
-        descriptionField.rightView = UIView(frame: CGRect(x: .zero, y: .zero, width: Constants.wishFieldViewWidth, height: Constants.wishFieldViewHeight))
-        descriptionField.leftViewMode = .always
-        descriptionField.rightViewMode = .always
+        notesField.leftView = UIView(frame: CGRect(x: .zero, y: .zero, width: Constants.wishFieldViewWidth, height: Constants.wishFieldViewHeight))
+        notesField.rightView = UIView(frame: CGRect(x: .zero, y: .zero, width: Constants.wishFieldViewWidth, height: Constants.wishFieldViewHeight))
+        notesField.leftViewMode = .always
+        notesField.rightViewMode = .always
         
-        descriptionField.setHeight(Constants.buttonHeight)
-        descriptionField.setWidth(Constants.stackWidth)
-        descriptionField.pinCenterX(to: view.centerXAnchor)
-        descriptionField.pinTop(to: titleField.bottomAnchor, 10)
+        notesField.setHeight(Constants.buttonHeight)
+        notesField.setWidth(Constants.stackWidth)
+        notesField.pinCenterX(to: view.centerXAnchor)
+        notesField.pinTop(to: titleField.bottomAnchor, 10)
     }
     
     private func configureStartDateLabel() {
@@ -120,7 +120,7 @@ final class WishEventCreationView: UIViewController {
         startDatePicker.minimumDate = Date()
         startDatePicker.calendar = .autoupdatingCurrent
         
-        startDatePicker.pinTop(to: descriptionField.bottomAnchor, 10)
+        startDatePicker.pinTop(to: notesField.bottomAnchor, 10)
         startDatePicker.pinRight(to: view.trailingAnchor, 20)
     }
     
@@ -174,15 +174,45 @@ final class WishEventCreationView: UIViewController {
     
     @objc
     private func addEventButtonPressed() {
-        let newEvent = WishEventModel(
-            title: titleField.text ?? "test",
-            description: descriptionField.text ?? "test",
-            startDate: startDatePicker.date.convertedDate,
-            endDate: endDatePicker.date.convertedDate)
+        let startDateConv = startDatePicker.date.convertedDate
+        var endDateConv = endDatePicker.date.convertedDate
         
-        eventArray.append(newEvent)
-        didSelectItem?(eventArray)
-        dismiss(animated: true)
+        if titleField.text != nil && titleField.text?.isEmpty == false && (startDateConv <= endDateConv) {
+            endDateConv = endDateConv.addingTimeInterval(23 * 60 * 60 + 59 * 60)
+            
+            let calendarEvent = CalendarEventModel(
+                title: titleField.text!,
+                note: notesField.text,
+                startDate: startDateConv,
+                endDate: endDateConv
+            )
+            
+            let result = CalendarManager().create(eventModel: calendarEvent)
+            
+            if result {
+                let event = WishEvent(context: context)
+                event.title = titleField.text
+                event.notes = notesField.text
+                event.startDate = startDateConv
+                event.endDate = endDateConv
+                
+                do {
+                    try context.save()
+                    didSelectItem?(event)
+                    dismiss(animated: true)
+                } catch {
+                    // TODO: show alert here
+                }
+            } else {
+                // TODO: show alert here
+            }
+        } else {
+            // TODO: show alert here
+            print("INCORRECT DATA")
+        }
+        
+        
+        
     }
 }
 

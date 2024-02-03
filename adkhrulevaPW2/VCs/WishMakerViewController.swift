@@ -16,11 +16,23 @@ final class WishMakerViewController: UIViewController {
     private let showWishesButton: UIButton = UIButton(type: .system)
     private let scheduleButton: UIButton = UIButton(type: .system)
     
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.navigationBar.isHidden = true
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.navigationBar.isHidden = false
+    }
+    
+    // MARK: - UI Configuration
     private func configureUI() {
         view.backgroundColor = .systemPink
         
@@ -199,6 +211,6 @@ final class WishMakerViewController: UIViewController {
     @objc
     private func scheduleButtonPressed() {
         let vc = WishCalendarViewController()
-        navigationController?.pushViewController(vc, animated: false)
+        navigationController?.pushViewController(vc, animated: true)
     }
 }

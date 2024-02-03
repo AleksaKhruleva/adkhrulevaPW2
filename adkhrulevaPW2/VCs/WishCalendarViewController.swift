@@ -6,15 +6,18 @@
 //
 
 import UIKit
+import CoreData
 
 final class WishCalendarViewController: UIViewController, UICollectionViewDelegate {
     
-    private var eventArray: [WishEventModel] = []
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
+    private var eventArray: [WishEvent] = []
     private let collectionView: UICollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        getWishEvents()
         view.backgroundColor = .white
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addTapped))
         configureCollection()
@@ -45,10 +48,10 @@ final class WishCalendarViewController: UIViewController, UICollectionViewDelega
     
     @objc
     private func addTapped() {
-        let vc = WishEventCreationView(eventArray: eventArray)
+        let vc = WishEventCreationView()
         present(vc, animated: true, completion: nil)
         vc.didSelectItem = { [weak self] (item) in
-            self?.eventArray = item
+            self?.eventArray.append(item)
             self?.collectionView.reloadData()
         }
     }
@@ -76,5 +79,33 @@ extension WishCalendarViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print("Cell tapped at index \(indexPath.item)")
+    }
+}
+
+// MARK: - Core Data Requests
+
+extension WishCalendarViewController {
+    func getWishEvents() {
+        let fetchRequest: NSFetchRequest<WishEvent> = WishEvent.fetchRequest()
+        fetchRequest.sortDescriptors = [NSSortDescriptor(keyPath: \WishEvent.title, ascending: true)]
+        
+        do {
+            let items = try context.fetch(fetchRequest)
+            eventArray = items
+        } catch {
+            // TODO: show alert here
+        }
+    }
+    
+    func deleteWishEvents() {
+        let fetchRequest: NSFetchRequest<NSFetchRequestResult> = WishEvent.fetchRequest()
+        
+        let batchDeleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+        
+        do {
+            try context.execute(batchDeleteRequest)
+        } catch {
+            // TODO: show alert here
+        }
     }
 }

@@ -22,7 +22,7 @@ enum Constants {
     static let titleTop: CGFloat = 30
     static let titleLeading: CGFloat = 20
     
-    static let descrTop: CGFloat = 20
+    static let descrTop: CGFloat = 10
     static let descrLeading: CGFloat = 20
     
     static let buttonHeight: Double = 50

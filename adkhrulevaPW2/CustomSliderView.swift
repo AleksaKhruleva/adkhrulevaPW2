@@ -41,7 +41,7 @@ final class CustomSlider: UIView {
         }
         
         let config = UIImage.SymbolConfiguration(textStyle: .title1)
-        let image = UIImage(systemName: "play.fill", withConfiguration: config)
+        let image = UIImage(systemName: "airplane", withConfiguration: config)
         slider.setThumbImage(image, for: .normal)
         
         titleView.pinCenterX(to: centerXAnchor)

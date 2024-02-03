@@ -12,7 +12,7 @@ final class WishEventCell: UICollectionViewCell {
     static let reuseIdentifier: String = "WishEventCell"
     private let wrapView: UIView = UIView()
     private let titleLabel: UILabel = UILabel()
-    private let descriptionLabel: UILabel = UILabel()
+    private let notesLabel: UILabel = UILabel()
     private let startDateLabel: UILabel = UILabel()
     private let endDateLabel: UILabel = UILabel()
     
@@ -22,7 +22,7 @@ final class WishEventCell: UICollectionViewCell {
         
         configureWrap()
         configureTitleLabel()
-        configureDescriptionLabel()
+        configurenotesLabel()
         configureStartDateLabel()
         configureEndDateLabel()
     }
@@ -33,11 +33,11 @@ final class WishEventCell: UICollectionViewCell {
     }
     
     // MARK: - Cell Configuration
-    func configure(with event: WishEventModel) {
+    func configure(with event: WishEvent) {
         titleLabel.text = event.title
-        descriptionLabel.text = event.description
-        startDateLabel.text = "Start Date: \(event.startDate)"
-        endDateLabel.text = "End Date: \(event.endDate)"
+        notesLabel.text = event.notes
+        startDateLabel.text = "Start Date: \(event.startDate!.shortenDate)"
+        endDateLabel.text = "End Date: \(event.endDate!.shortenDate)"
     }
     
     // MARK: - UI Configuration
@@ -56,12 +56,12 @@ final class WishEventCell: UICollectionViewCell {
         titleLabel.pinLeft(to: wrapView, 20)
     }
     
-    private func configureDescriptionLabel() {
-        addSubview(descriptionLabel)
-        descriptionLabel.textColor = .white
-        descriptionLabel.font = UIFont.systemFont(ofSize: 15)
-        descriptionLabel.pinTop(to: wrapView, 25)
-        descriptionLabel.pinLeft(to: titleLabel.trailingAnchor, 10)
+    private func configurenotesLabel() {
+        addSubview(notesLabel)
+        notesLabel.textColor = .white
+        notesLabel.font = UIFont.systemFont(ofSize: 15)
+        notesLabel.pinTop(to: wrapView, 25)
+        notesLabel.pinLeft(to: titleLabel.trailingAnchor, 10)
     }
     
     private func configureStartDateLabel() {
