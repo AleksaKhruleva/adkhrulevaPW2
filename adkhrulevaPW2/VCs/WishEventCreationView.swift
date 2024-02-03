@@ -30,10 +30,15 @@ final class WishEventCreationView: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: - LifecyclewishArray
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .systemPink
+        configureUI()
+    }
+    
+    // MARK: - UI Configuration
+    private func configureUI() {
+        view.backgroundColor = Vars.oppositeBackgroundColor
         configureCloseButton()
         configureTitleField()
         configurenotesField()
@@ -44,13 +49,15 @@ final class WishEventCreationView: UIViewController {
         configureAddEventButton()
     }
     
-    // MARK: - UI Configuration
     private func configureCloseButton() {
         view.addSubview(closeButton)
         
         closeButton.translatesAutoresizingMaskIntoConstraints = false
-        closeButton.setTitle(Constants.closeButtonText, for: .normal)
-        closeButton.titleLabel?.font = UIFont.systemFont(ofSize: Constants.closeButtonTitleFS, weight: .bold)
+        let largeFont = UIFont.systemFont(ofSize: 20, weight: .bold)
+        let configuration = UIImage.SymbolConfiguration(font: largeFont)
+        let image = UIImage(systemName: "xmark", withConfiguration: configuration)
+        closeButton.setImage(image, for: .normal)
+        closeButton.tintColor = Vars.backgroundColor
         closeButton.layer.cornerRadius = Constants.buttonCornerRadius
         closeButton.addTarget(self, action: #selector(closeButtonPressed), for: .touchUpInside)
         
@@ -157,6 +164,7 @@ final class WishEventCreationView: UIViewController {
         addEventButton.setTitle("Add event", for: .normal)
         addEventButton.titleLabel?.font = UIFont.systemFont(ofSize: Constants.buttonTitleFS, weight: .bold)
         addEventButton.setTitleColor(view.backgroundColor, for: .normal)
+        addEventButton.setTitleColor(.white, for: .highlighted)
         addEventButton.backgroundColor = .white
         addEventButton.layer.cornerRadius = Constants.buttonCornerRadius
         addEventButton.addTarget(self, action: #selector(addEventButtonPressed), for: .touchUpInside)

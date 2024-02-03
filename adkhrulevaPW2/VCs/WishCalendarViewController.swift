@@ -18,15 +18,40 @@ final class WishCalendarViewController: UIViewController, UICollectionViewDelega
     override func viewDidLoad() {
         super.viewDidLoad()
         getWishEvents()
-        view.backgroundColor = .white
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addTapped))
+        
+        configureUI()
+    }
+    
+    private func configureUI() {
+        view.backgroundColor = Vars.backgroundColor
+        
+        navigationItem.hidesBackButton = true
+        
+        configureBackButton()
+        configureAddButton()
         configureCollection()
+    }
+    
+    private func configureAddButton() {
+        let largeFont = UIFont.systemFont(ofSize: 20, weight: .bold)
+        let configuration = UIImage.SymbolConfiguration(font: largeFont)
+        let image = UIImage(systemName: "plus", withConfiguration: configuration)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: image, style: .plain, target: self, action: #selector(addButtonTapped))
+        navigationItem.rightBarButtonItem?.tintColor = Vars.oppositeBackgroundColor
+    }
+    
+    private func configureBackButton() {
+        let largeFont = UIFont.systemFont(ofSize: 20, weight: .bold)
+        let configuration = UIImage.SymbolConfiguration(font: largeFont)
+        let image = UIImage(systemName: "chevron.left", withConfiguration: configuration)
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: image, style: .plain, target: self, action: #selector(backButtonTapped))
+        navigationItem.leftBarButtonItem?.tintColor = Vars.oppositeBackgroundColor
     }
     
     private func configureCollection() {
         collectionView.delegate = self
         collectionView.dataSource = self
-        collectionView.backgroundColor = .white
+        collectionView.backgroundColor = view.backgroundColor
         collectionView.alwaysBounceVertical = true
         collectionView.showsVerticalScrollIndicator = false
         //        collectionView.contentInset = UIEdgeInsets()
@@ -47,13 +72,18 @@ final class WishCalendarViewController: UIViewController, UICollectionViewDelega
     }
     
     @objc
-    private func addTapped() {
+    private func addButtonTapped() {
         let vc = WishEventCreationView()
         present(vc, animated: true, completion: nil)
         vc.didSelectItem = { [weak self] (item) in
             self?.eventArray.append(item)
             self?.collectionView.reloadData()
         }
+    }
+    
+    @objc
+    private func backButtonTapped() {
+        navigationController?.popViewController(animated: true)
     }
 }
 

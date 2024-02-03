@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		552BF6782B6EBF6200A74F0D /* Vars.swift in Sources */ = {isa = PBXBuildFile; fileRef = 552BF6772B6EBF6200A74F0D /* Vars.swift */; };
 		554973782AFE37B400748342 /* WishStoringViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 554973772AFE37B400748342 /* WishStoringViewController.swift */; };
 		554A40FA2B6E89F700397DEA /* CalendarManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 554A40F92B6E89F700397DEA /* CalendarManager.swift */; };
 		554A40FD2B6E9C3600397DEA /* WishEventModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 554A40FB2B6E9C3600397DEA /* WishEventModel.xcdatamodeld */; };
@@ -30,6 +31,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		552BF6772B6EBF6200A74F0D /* Vars.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vars.swift; sourceTree = "<group>"; };
 		554973772AFE37B400748342 /* WishStoringViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishStoringViewController.swift; sourceTree = "<group>"; };
 		554A40F92B6E89F700397DEA /* CalendarManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarManager.swift; sourceTree = "<group>"; };
 		554A40FC2B6E9C3600397DEA /* WishEventModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = WishEventModel.xcdatamodel; sourceTree = "<group>"; };
@@ -96,13 +98,14 @@
 			path = Cells;
 			sourceTree = "<group>";
 		};
-		55951E5B2B6D9A9B0090B6C4 /* Constants */ = {
+		55951E5B2B6D9A9B0090B6C4 /* Globals */ = {
 			isa = PBXGroup;
 			children = (
+				552BF6772B6EBF6200A74F0D /* Vars.swift */,
 				5577B15D2ACEE06C0008294E /* Constants.swift */,
 				55951E562B6D97200090B6C4 /* ConstCalendar.swift */,
 			);
-			path = Constants;
+			path = Globals;
 			sourceTree = "<group>";
 		};
 		55951E5C2B6D9AB00090B6C4 /* App */ = {
@@ -137,7 +140,7 @@
 			children = (
 				55951E542B6D93650090B6C4 /* VCs */,
 				55951E5A2B6D9A8B0090B6C4 /* Cells */,
-				55951E5B2B6D9A9B0090B6C4 /* Constants */,
+				55951E5B2B6D9A9B0090B6C4 /* Globals */,
 				5577B15F2ACEE1460008294E /* CustomSliderView.swift */,
 				55951E5F2B6D9D1F0090B6C4 /* WishEventModel.swift */,
 				559EF1DA2ACDB8210003FE55 /* Info.plist */,
@@ -231,6 +234,7 @@
 				559EF1CD2ACDB81F0003FE55 /* AppDelegate.swift in Sources */,
 				5577B1562ACED6F00008294E /* WishMakerViewController.swift in Sources */,
 				55D0A05A2AFB9FB2003C7B38 /* WrittenWishCell.swift in Sources */,
+				552BF6782B6EBF6200A74F0D /* Vars.swift in Sources */,
 				5577B15C2ACEE04D0008294E /* UIColorExtension.swift in Sources */,
 				554A40FA2B6E89F700397DEA /* CalendarManager.swift in Sources */,
 				55D0A0562AFB89B2003C7B38 /* UIViewPin.swift in Sources */,

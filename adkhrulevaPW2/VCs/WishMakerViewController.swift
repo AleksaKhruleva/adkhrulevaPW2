@@ -34,7 +34,7 @@ final class WishMakerViewController: UIViewController {
     
     // MARK: - UI Configuration
     private func configureUI() {
-        view.backgroundColor = .systemPink
+        view.backgroundColor = Vars.backgroundColor
         
         configureTitle()
         configureDescription()
@@ -51,8 +51,7 @@ final class WishMakerViewController: UIViewController {
         titleView.translatesAutoresizingMaskIntoConstraints = false
         titleView.text = Constants.appTitle
         titleView.font = UIFont.systemFont(ofSize: Constants.appTitleFS, weight: .heavy)
-        //        titleView.textColor = .random()
-        titleView.textColor = .black
+        titleView.textColor = Vars.textColor
         
         titleView.pinCenterX(to: view.centerXAnchor)
         titleView.pinTop(to: view.safeAreaLayoutGuide.topAnchor, Constants.titleTop)
@@ -122,6 +121,8 @@ final class WishMakerViewController: UIViewController {
     
     func updateUI(viewBackgroundColor: UIColor) {
         let oppositeColor = UIColor.oppositeColor(baseColor: viewBackgroundColor)
+        Vars.backgroundColor = viewBackgroundColor
+        Vars.oppositeBackgroundColor = oppositeColor
         view.backgroundColor = viewBackgroundColor
         titleView.textColor = oppositeColor
         descriptionView.textColor = oppositeColor
@@ -204,12 +205,15 @@ final class WishMakerViewController: UIViewController {
     @objc
     private func showWishesButtonPressed() {
         let oppositeColor = UIColor.oppositeColor(baseColor: view.backgroundColor ?? .random())
-        let vc = WishStoringViewController(backgroundColor: oppositeColor)
+        Vars.oppositeBackgroundColor = oppositeColor
+        let vc = WishStoringViewController()
         present(vc, animated: true)
     }
     
     @objc
     private func scheduleButtonPressed() {
+        let oppositeColor = UIColor.oppositeColor(baseColor: view.backgroundColor ?? .random())
+        Vars.oppositeBackgroundColor = oppositeColor
         let vc = WishCalendarViewController()
         navigationController?.pushViewController(vc, animated: true)
     }

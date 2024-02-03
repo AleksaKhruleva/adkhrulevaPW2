@@ -16,16 +16,6 @@ final class WishStoringViewController: UIViewController {
     private let defaults = UserDefaults.standard
     
     private var wishArray: [String] = []
-    var backgroundColor: UIColor
-    
-    init(backgroundColor: UIColor) {
-        self.backgroundColor = backgroundColor
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError(Constants.fatalError)
-    }
     
     override func viewDidLoad() {
         wishArray = defaults.array(forKey: Constants.wishArrayKey) as? [String] ?? []
@@ -35,7 +25,7 @@ final class WishStoringViewController: UIViewController {
     }
     
     private func configureUI() {
-        view.backgroundColor = backgroundColor
+        view.backgroundColor = Vars.oppositeBackgroundColor
         configureCloseButton()
         configureWishField()
         configureAddWishButton()
@@ -46,8 +36,11 @@ final class WishStoringViewController: UIViewController {
         view.addSubview(closeButton)
         
         closeButton.translatesAutoresizingMaskIntoConstraints = false
-        closeButton.setTitle(Constants.closeButtonText, for: .normal)
-        closeButton.titleLabel?.font = UIFont.systemFont(ofSize: Constants.closeButtonTitleFS, weight: .bold)
+        let largeFont = UIFont.systemFont(ofSize: 20, weight: .bold)
+        let configuration = UIImage.SymbolConfiguration(font: largeFont)
+        let image = UIImage(systemName: "xmark", withConfiguration: configuration)
+        closeButton.setImage(image, for: .normal)
+        closeButton.tintColor = Vars.backgroundColor
         closeButton.layer.cornerRadius = Constants.buttonCornerRadius
         closeButton.addTarget(self, action: #selector(closeButtonPressed), for: .touchUpInside)
         

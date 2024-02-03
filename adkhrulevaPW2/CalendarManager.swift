@@ -36,6 +36,7 @@ final class CalendarManager: CalendarManaging {
     private func create(eventModel: CalendarEventModel, completion: ((Bool) -> Void)?) {
         let createEvent: EKEventStoreRequestAccessCompletionHandler = { [weak self] (granted, error) in
             guard granted, error == nil, let self else {
+                print("ABOBA")
                 completion?(false)
                 return
             }
@@ -53,11 +54,12 @@ final class CalendarManager: CalendarManaging {
                 print("failed to save event with error : \(error)")
                 completion?(false)
             }
+            
             completion?(true)
         }
         
         if #available(iOS 17.0, *) {
-            eventStore.requestFullAccessToEvents(completion: createEvent)
+            eventStore.requestWriteOnlyAccessToEvents(completion: createEvent)
         } else {
             eventStore.requestAccess(to: .event, completion: createEvent)
         }
