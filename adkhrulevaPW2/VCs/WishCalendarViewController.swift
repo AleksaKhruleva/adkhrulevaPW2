@@ -18,7 +18,7 @@ final class WishCalendarViewController: UIViewController, UICollectionViewDelega
     override func viewDidLoad() {
         super.viewDidLoad()
         getWishEvents()
-        
+//        deleteWishEvents()
         configureUI()
     }
     
@@ -54,7 +54,6 @@ final class WishCalendarViewController: UIViewController, UICollectionViewDelega
         collectionView.backgroundColor = view.backgroundColor
         collectionView.alwaysBounceVertical = true
         collectionView.showsVerticalScrollIndicator = false
-        //        collectionView.contentInset = UIEdgeInsets()
         
         if let layout = collectionView.collectionViewLayout as?
             UICollectionViewFlowLayout {
@@ -68,7 +67,7 @@ final class WishCalendarViewController: UIViewController, UICollectionViewDelega
         view.addSubview(collectionView)
         collectionView.pinHorizontal(to: view)
         collectionView.pinBottom(to: view.safeAreaLayoutGuide.bottomAnchor)
-        collectionView.pinTop(to: view.safeAreaLayoutGuide.topAnchor, 0)
+        collectionView.pinTop(to: view.safeAreaLayoutGuide.topAnchor)
     }
     
     @objc
@@ -104,7 +103,22 @@ extension WishCalendarViewController: UICollectionViewDataSource {
 // MARK: - UICollectionViewDelegateFlowLayout
 extension WishCalendarViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: collectionView.bounds.width - 10, height: 110)
+        let spacing = 5
+        let width = (Int(collectionView.bounds.width) - 7 * spacing) / 2
+        
+        return CGSize(width: width, height: width)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 5
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 5
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 0, left: 13, bottom: 13, right: 13)
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -113,12 +127,10 @@ extension WishCalendarViewController: UICollectionViewDelegateFlowLayout {
 }
 
 // MARK: - Core Data Requests
-
 extension WishCalendarViewController {
     func getWishEvents() {
         let fetchRequest: NSFetchRequest<WishEvent> = WishEvent.fetchRequest()
         fetchRequest.sortDescriptors = [NSSortDescriptor(keyPath: \WishEvent.title, ascending: true)]
-        
         do {
             let items = try context.fetch(fetchRequest)
             eventArray = items
@@ -129,9 +141,7 @@ extension WishCalendarViewController {
     
     func deleteWishEvents() {
         let fetchRequest: NSFetchRequest<NSFetchRequestResult> = WishEvent.fetchRequest()
-        
         let batchDeleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
-        
         do {
             try context.execute(batchDeleteRequest)
         } catch {

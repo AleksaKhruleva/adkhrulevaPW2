@@ -13,6 +13,6 @@ enum ConstCalendar {
     
     static let collectionTop: CGFloat = 20
     static let offset: CGFloat = 20
-    static let cornerRadius: CGFloat = 30
+    static let cornerRadius: CGFloat = 25
 }
 

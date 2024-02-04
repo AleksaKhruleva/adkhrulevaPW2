@@ -189,7 +189,7 @@ final class WishEventCreationView: UIViewController {
         startDatePicker.calendar = .autoupdatingCurrent
         
         startDatePicker.pinVertical(to: startDateLabel)
-        startDatePicker.pinRight(to: dateBackgroundView.trailingAnchor, 10)
+        startDatePicker.pinRight(to: dateBackgroundView.trailingAnchor, 20)
     }
     
     private func configureEndDateLabel() {
@@ -211,7 +211,7 @@ final class WishEventCreationView: UIViewController {
         endDatePicker.calendar = .autoupdatingCurrent
         
         endDatePicker.pinVertical(to: endDateLabel)
-        endDatePicker.pinRight(to: dateBackgroundView.trailingAnchor, 10)
+        endDatePicker.pinRight(to: dateBackgroundView.trailingAnchor, 20)
     }
     
     private func configureAddEventButton() {

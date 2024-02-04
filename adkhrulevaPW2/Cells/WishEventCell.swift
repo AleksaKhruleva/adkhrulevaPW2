@@ -22,7 +22,7 @@ final class WishEventCell: UICollectionViewCell {
         
         configureWrap()
         configureTitleLabel()
-        configurenotesLabel()
+        configureNotesLabel()
         configureStartDateLabel()
         configureEndDateLabel()
     }
@@ -36,47 +36,53 @@ final class WishEventCell: UICollectionViewCell {
     func configure(with event: WishEvent) {
         titleLabel.text = event.title
         notesLabel.text = event.notes
-        startDateLabel.text = "Start Date: \(event.startDate!.shortenDate)"
-        endDateLabel.text = "End Date: \(event.endDate!.shortenDate)"
+        startDateLabel.text = "Start: \(event.startDate!.shortenDate)"
+        endDateLabel.text = "End:   \(event.endDate!.shortenDate)"
     }
     
     // MARK: - UI Configuration
     private func configureWrap() {
         addSubview(wrapView)
         wrapView.pin(to: self, 5)
+        wrapView.backgroundColor = .white
         wrapView.layer.cornerRadius = ConstCalendar.cornerRadius
-        wrapView.backgroundColor = ConstCalendar.backgroundColor
     }
     
     private func configureTitleLabel() {
         addSubview(titleLabel)
-        titleLabel.textColor = .white
+        titleLabel.textColor = .black
         titleLabel.font = UIFont.systemFont(ofSize: 20)
-        titleLabel.pinTop(to: wrapView, 20)
-        titleLabel.pinLeft(to: wrapView, 20)
+        titleLabel.numberOfLines = 2
+        titleLabel.lineBreakMode = .byWordWrapping
+        titleLabel.setWidth(140)
+        titleLabel.pinTop(to: wrapView.topAnchor, 15)
+        titleLabel.pinLeft(to: wrapView.leadingAnchor, 15)
     }
     
-    private func configurenotesLabel() {
+    private func configureNotesLabel() {
         addSubview(notesLabel)
-        notesLabel.textColor = .white
+        notesLabel.textColor = .lightGray
         notesLabel.font = UIFont.systemFont(ofSize: 15)
-        notesLabel.pinTop(to: wrapView, 25)
-        notesLabel.pinLeft(to: titleLabel.trailingAnchor, 10)
+        notesLabel.numberOfLines = 2
+        notesLabel.lineBreakMode = .byWordWrapping
+        notesLabel.setWidth(140)
+        notesLabel.pinTop(to: titleLabel.bottomAnchor, 5)
+        notesLabel.pinLeft(to: wrapView.leadingAnchor, 15)
     }
     
     private func configureStartDateLabel() {
         addSubview(startDateLabel)
-        startDateLabel.textColor = .lightGray
-        startDateLabel.font = UIFont.systemFont(ofSize: 10)
-        startDateLabel.pinTop(to: titleLabel.bottomAnchor, 5)
-        startDateLabel.pinLeft(to: wrapView, 20)
+        startDateLabel.textColor = .darkGray
+        startDateLabel.font = UIFont.systemFont(ofSize: 15)
+        startDateLabel.pinTop(to: notesLabel.bottomAnchor, 5)
+        startDateLabel.pinLeft(to: wrapView.leadingAnchor, 15)
     }
     
     private func configureEndDateLabel() {
         addSubview(endDateLabel)
-        endDateLabel.textColor = .lightGray
-        endDateLabel.font = UIFont.systemFont(ofSize: 10)
+        endDateLabel.textColor = .darkGray
+        endDateLabel.font = UIFont.systemFont(ofSize: 15)
         endDateLabel.pinTop(to: startDateLabel.bottomAnchor, 2)
-        endDateLabel.pinLeft(to: wrapView, 20)
+        endDateLabel.pinLeft(to: wrapView.leadingAnchor, 15)
     }
 }

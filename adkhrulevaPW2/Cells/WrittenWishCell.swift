@@ -33,6 +33,7 @@ final class WrittenWishCell: UITableViewCell {
         wishLabel.numberOfLines = .zero
         selectionStyle = .none
         
+        
         wishLabel.pinLeft(to: leadingAnchor, Constants.cellWrapOffsetH)
         wishLabel.pinRight(to: trailingAnchor, Constants.cellWrapOffsetH)
         wishLabel.pinTop(to: topAnchor, Constants.cellWrapOffsetV).priority = UILayoutPriority(999)
