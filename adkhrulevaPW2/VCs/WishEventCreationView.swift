@@ -16,10 +16,11 @@ final class WishEventCreationView: UIViewController {
     private let hintLabel: UILabel = UILabel()
     private let tableView: UITableView = UITableView(frame: .zero)
     private let notesField: UITextField = UITextField()
+    private let dateBackgroundView: UIView = UIView()
     private let startDateLabel: UILabel = UILabel()
-    private let startDatePicker: UIDatePicker = UIDatePicker(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
+    private let startDatePicker: UIDatePicker = UIDatePicker(frame: .zero)
     private let endDateLabel: UILabel = UILabel()
-    private let endDatePicker: UIDatePicker = UIDatePicker(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
+    private let endDatePicker: UIDatePicker = UIDatePicker(frame: .zero)
     private let addEventButton: UIButton = UIButton(type: .system)
     private let defaults = UserDefaults.standard
     
@@ -31,6 +32,7 @@ final class WishEventCreationView: UIViewController {
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        hideKeyboardWhenTappedAround()
         wishArray = defaults.array(forKey: Constants.wishArrayKey) as? [String] ?? []
         filteredWishArray = wishArray
         tableView.dataSource = self
@@ -49,10 +51,8 @@ final class WishEventCreationView: UIViewController {
         configureHintLable()
         configureTable()
         configureNotesField()
-        configureStartDatePicker()
-        configureStartDateLabel()
-        configureEndDatePicker()
-        configureEndDateLabel()
+        
+        configureDateBackgroundView()
         configureAddEventButton()
     }
     
@@ -98,12 +98,12 @@ final class WishEventCreationView: UIViewController {
         hintLabel.translatesAutoresizingMaskIntoConstraints = false
         hintLabel.text = "Come up with a new wish or select from saved ones:"
         hintLabel.textColor = .white
-        hintLabel.font = UIFont.systemFont(ofSize: 18)
+        hintLabel.font = UIFont.systemFont(ofSize: 17)
         hintLabel.lineBreakMode = .byWordWrapping
         hintLabel.numberOfLines = 0
         
         hintLabel.setWidth(Constants.stackWidth)
-        hintLabel.pinLeft(to: view.leadingAnchor, 20)
+        hintLabel.pinLeft(to: view.leadingAnchor, 25)
         hintLabel.pinTop(to: titleField.bottomAnchor, 10)
     }
     
@@ -147,56 +147,70 @@ final class WishEventCreationView: UIViewController {
         notesField.pinTop(to: tableView.bottomAnchor, 10)
     }
     
-    private func configureStartDateLabel() {
-        view.addSubview(startDateLabel)
+    private func configureDateBackgroundView() {
+        view.addSubview(dateBackgroundView)
+        dateBackgroundView.addSubview(startDateLabel)
+        dateBackgroundView.addSubview(startDatePicker)
+        dateBackgroundView.addSubview(endDateLabel)
+        dateBackgroundView.addSubview(endDatePicker)
         
+        dateBackgroundView.translatesAutoresizingMaskIntoConstraints = false
+        dateBackgroundView.backgroundColor = .white
+        dateBackgroundView.layer.cornerRadius = 20
+        
+        dateBackgroundView.setWidth(Constants.stackWidth)
+        dateBackgroundView.setHeight(99)
+        dateBackgroundView.pinCenterX(to: view.centerXAnchor)
+        dateBackgroundView.pinTop(to: notesField.bottomAnchor, 10)
+        
+        configureStartDateLabel()
+        configureStartDatePicker()
+        configureEndDateLabel()
+        configureEndDatePicker()
+    }
+    
+    private func configureStartDateLabel() {
         startDateLabel.translatesAutoresizingMaskIntoConstraints = false
-        startDateLabel.text = "Start date..."
+        startDateLabel.text = "Start date:"
         startDateLabel.textColor = .black
-        startDateLabel.font = UIFont.systemFont(ofSize: 20)
+        startDateLabel.font = UIFont.systemFont(ofSize: 17)
         startDateLabel.lineBreakMode = .byWordWrapping
         startDateLabel.numberOfLines = 1
         
-        startDateLabel.pinLeft(to: view.leadingAnchor, 40)
-        startDateLabel.pinVertical(to: startDatePicker)
+        startDateLabel.pinTop(to: dateBackgroundView.topAnchor, 10)
+        startDateLabel.pinLeft(to: dateBackgroundView.leadingAnchor, 20)
     }
     
     private func configureStartDatePicker() {
-        view.addSubview(startDatePicker)
-        
         startDatePicker.translatesAutoresizingMaskIntoConstraints = false
         startDatePicker.datePickerMode = .date
         startDatePicker.minimumDate = Date()
         startDatePicker.calendar = .autoupdatingCurrent
         
-        startDatePicker.pinTop(to: notesField.bottomAnchor, 10)
-        startDatePicker.pinRight(to: view.trailingAnchor, 20)
+        startDatePicker.pinVertical(to: startDateLabel)
+        startDatePicker.pinRight(to: dateBackgroundView.trailingAnchor, 10)
     }
     
     private func configureEndDateLabel() {
-        view.addSubview(endDateLabel)
-        
         endDateLabel.translatesAutoresizingMaskIntoConstraints = false
-        endDateLabel.text = "End date..."
+        endDateLabel.text = "End date:"
         endDateLabel.textColor = .black
-        endDateLabel.font = UIFont.systemFont(ofSize: 20)
+        endDateLabel.font = UIFont.systemFont(ofSize: 17)
         endDateLabel.lineBreakMode = .byWordWrapping
         endDateLabel.numberOfLines = 1
         
-        endDateLabel.pinLeft(to: view.leadingAnchor, 40)
-        endDateLabel.pinVertical(to: endDatePicker)
+        endDateLabel.pinTop(to: startDateLabel.bottomAnchor, 10)
+        endDateLabel.pinLeft(to: dateBackgroundView.leadingAnchor, 20)
     }
     
     private func configureEndDatePicker() {
-        view.addSubview(endDatePicker)
-        
         endDatePicker.translatesAutoresizingMaskIntoConstraints = false
         endDatePicker.datePickerMode = .date
         endDatePicker.minimumDate = Date()
         endDatePicker.calendar = .autoupdatingCurrent
         
-        endDatePicker.pinTop(to: startDatePicker.bottomAnchor, 10)
-        endDatePicker.pinRight(to: view.trailingAnchor, 20)
+        endDatePicker.pinVertical(to: endDateLabel)
+        endDatePicker.pinRight(to: dateBackgroundView.trailingAnchor, 10)
     }
     
     private func configureAddEventButton() {
@@ -214,7 +228,7 @@ final class WishEventCreationView: UIViewController {
         addEventButton.setHeight(Constants.buttonHeight)
         addEventButton.setWidth(Constants.stackWidth)
         addEventButton.pinCenterX(to: view.centerXAnchor)
-        addEventButton.pinTop(to: endDatePicker.bottomAnchor, 20)
+        addEventButton.pinTop(to: dateBackgroundView.bottomAnchor, 10)
     }
     
     @objc
@@ -251,18 +265,32 @@ final class WishEventCreationView: UIViewController {
                     didSelectItem?(event)
                     dismiss(animated: true)
                 } catch {
-                    // TODO: show alert here
+                    showAlertSaveError()
                 }
             } else {
-                // TODO: show alert here
+                showAlertCreationError()
             }
         } else {
-            // TODO: show alert here
-            print("INCORRECT DATA")
+            showAlertInvalidData()
         }
-        
-        
-        
+    }
+    
+    private func showAlertSaveError() {
+        let alert = UIAlertController(title: "Data saving error", message: "Failed to save data, please try again.", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: Constants.alertActionOK, style: .default))
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    private func showAlertCreationError() {
+        let alert = UIAlertController(title: "Event creation error", message: "Failed to create event, please try again.", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: Constants.alertActionOK, style: .default))
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    private func showAlertInvalidData() {
+        let alert = UIAlertController(title: "Invalid data", message: "Please check that you have filled in the title and that the end date is not less than the start date.", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: Constants.alertActionOK, style: .default))
+        self.present(alert, animated: true, completion: nil)
     }
     
     @objc func valueChanged(sender: UITextField) {
