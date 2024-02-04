@@ -15,6 +15,7 @@ final class WishCalendarViewController: UIViewController, UICollectionViewDelega
     private var eventArray: [WishEvent] = []
     private let collectionView: UICollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
     
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         getWishEvents()
@@ -22,28 +23,27 @@ final class WishCalendarViewController: UIViewController, UICollectionViewDelega
         configureUI()
     }
     
+    // MARK: - UI Configuration
     private func configureUI() {
         view.backgroundColor = Vars.backgroundColor
-        
         navigationItem.hidesBackButton = true
-        
         configureBackButton()
         configureAddButton()
         configureCollection()
     }
     
     private func configureAddButton() {
-        let largeFont = UIFont.systemFont(ofSize: 20, weight: .bold)
+        let largeFont = UIFont.systemFont(ofSize: ConstCalendar.buttonImageFont, weight: .bold)
         let configuration = UIImage.SymbolConfiguration(font: largeFont)
-        let image = UIImage(systemName: "plus", withConfiguration: configuration)
+        let image = UIImage(systemName: ConstCalendar.addButtonImage, withConfiguration: configuration)
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: image, style: .plain, target: self, action: #selector(addButtonTapped))
         navigationItem.rightBarButtonItem?.tintColor = Vars.oppositeBackgroundColor
     }
     
     private func configureBackButton() {
-        let largeFont = UIFont.systemFont(ofSize: 20, weight: .bold)
+        let largeFont = UIFont.systemFont(ofSize: ConstCalendar.buttonImageFont, weight: .bold)
         let configuration = UIImage.SymbolConfiguration(font: largeFont)
-        let image = UIImage(systemName: "chevron.left", withConfiguration: configuration)
+        let image = UIImage(systemName: ConstCalendar.backButtonImage, withConfiguration: configuration)
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: image, style: .plain, target: self, action: #selector(backButtonTapped))
         navigationItem.leftBarButtonItem?.tintColor = Vars.oppositeBackgroundColor
     }
@@ -57,8 +57,8 @@ final class WishCalendarViewController: UIViewController, UICollectionViewDelega
         
         if let layout = collectionView.collectionViewLayout as?
             UICollectionViewFlowLayout {
-            layout.minimumInteritemSpacing = 0
-            layout.minimumLineSpacing = 0
+            layout.minimumInteritemSpacing = .zero
+            layout.minimumLineSpacing = .zero
             layout.invalidateLayout()
         }
         
@@ -74,8 +74,9 @@ final class WishCalendarViewController: UIViewController, UICollectionViewDelega
     private func addButtonTapped() {
         let vc = WishEventCreationView()
         present(vc, animated: true, completion: nil)
-        vc.didSelectItem = { [weak self] (item) in
+        vc.didAddItem = { [weak self] (item) in
             self?.eventArray.append(item)
+            self?.eventArray.sort(by: { $0.title! < $1.title! })
             self?.collectionView.reloadData()
         }
     }
@@ -103,26 +104,25 @@ extension WishCalendarViewController: UICollectionViewDataSource {
 // MARK: - UICollectionViewDelegateFlowLayout
 extension WishCalendarViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let spacing = 5
-        let width = (Int(collectionView.bounds.width) - 7 * spacing) / 2
-        
+        let spacing = ConstCalendar.collectionSpace
+        let width = (Int(collectionView.bounds.width) - ConstCalendar.coef1 * Int(spacing)) / ConstCalendar.coef2
         return CGSize(width: width, height: width)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 5
+        return ConstCalendar.collectionSpace
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return 5
+        return ConstCalendar.collectionSpace
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 0, left: 13, bottom: 13, right: 13)
+        return UIEdgeInsets(top: .zero, left: ConstCalendar.edgeInsetsNum, bottom: ConstCalendar.edgeInsetsNum, right: ConstCalendar.edgeInsetsNum)
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("Cell tapped at index \(indexPath.item)")
+//        print("Cell tapped at index \(indexPath.item)")
     }
 }
 

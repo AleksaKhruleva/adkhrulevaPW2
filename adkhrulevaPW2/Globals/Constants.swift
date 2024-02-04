@@ -51,6 +51,8 @@ enum Constants {
     static let scheduleButtonText: String = "Schedule wish granting"
     static let scheduleButtonBottom: CGFloat = 40
     
+    static let closeButtonImage: String = "xmark"
+    
     static let closeButtonText: String = "Close"
     static let closeButtonTitleFS: CGFloat = 16
     static let closeButtonTop: CGFloat = 15
@@ -61,7 +63,7 @@ enum Constants {
     static let sectionZeroRows: Int = 1
     static let sectionOne: Int = 1
     
-    static let tableCornerRadius: CGFloat = 16
+    static let tableCornerRadius: CGFloat = 20
     static let tableTop: CGFloat = 10
     static let tableBottom: CGFloat = 40
     static let tableHorizontal: CGFloat = 10

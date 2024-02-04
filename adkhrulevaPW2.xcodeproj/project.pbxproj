@@ -25,6 +25,7 @@
 		559EF1D62ACDB8210003FE55 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 559EF1D52ACDB8210003FE55 /* Assets.xcassets */; };
 		559EF1D92ACDB8210003FE55 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 559EF1D72ACDB8210003FE55 /* LaunchScreen.storyboard */; };
 		55B59CE62B6FE0CE0061B568 /* VCExtention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B59CE52B6FE0CE0061B568 /* VCExtention.swift */; };
+		55B59CE82B7019780061B568 /* ConstEventCrtn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B59CE72B7019780061B568 /* ConstEventCrtn.swift */; };
 		55D0A0562AFB89B2003C7B38 /* UIViewPin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D0A0552AFB89B2003C7B38 /* UIViewPin.swift */; };
 		55D0A05A2AFB9FB2003C7B38 /* WrittenWishCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D0A0592AFB9FB2003C7B38 /* WrittenWishCell.swift */; };
 /* End PBXBuildFile section */
@@ -50,6 +51,7 @@
 		559EF1D82ACDB8210003FE55 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		559EF1DA2ACDB8210003FE55 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		55B59CE52B6FE0CE0061B568 /* VCExtention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VCExtention.swift; sourceTree = "<group>"; };
+		55B59CE72B7019780061B568 /* ConstEventCrtn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstEventCrtn.swift; sourceTree = "<group>"; };
 		55D0A0552AFB89B2003C7B38 /* UIViewPin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewPin.swift; sourceTree = "<group>"; };
 		55D0A0592AFB9FB2003C7B38 /* WrittenWishCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WrittenWishCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -103,6 +105,7 @@
 				552BF6772B6EBF6200A74F0D /* Vars.swift */,
 				5577B15D2ACEE06C0008294E /* Constants.swift */,
 				55951E562B6D97200090B6C4 /* ConstCalendar.swift */,
+				55B59CE72B7019780061B568 /* ConstEventCrtn.swift */,
 			);
 			path = Globals;
 			sourceTree = "<group>";
@@ -231,6 +234,7 @@
 				55D0A05A2AFB9FB2003C7B38 /* WrittenWishCell.swift in Sources */,
 				552BF6782B6EBF6200A74F0D /* Vars.swift in Sources */,
 				5577B15C2ACEE04D0008294E /* UIColorExtension.swift in Sources */,
+				55B59CE82B7019780061B568 /* ConstEventCrtn.swift in Sources */,
 				554A40FA2B6E89F700397DEA /* CalendarManager.swift in Sources */,
 				55D0A0562AFB89B2003C7B38 /* UIViewPin.swift in Sources */,
 				559EF1CF2ACDB81F0003FE55 /* SceneDelegate.swift in Sources */,

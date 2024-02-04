@@ -40,9 +40,9 @@ final class WishStoringViewController: UIViewController {
         view.addSubview(closeButton)
         
         closeButton.translatesAutoresizingMaskIntoConstraints = false
-        let largeFont = UIFont.systemFont(ofSize: 20, weight: .bold)
+        let largeFont = UIFont.systemFont(ofSize: Constants.buttonTitleFS, weight: .bold)
         let configuration = UIImage.SymbolConfiguration(font: largeFont)
-        let image = UIImage(systemName: "xmark", withConfiguration: configuration)
+        let image = UIImage(systemName: Constants.closeButtonImage, withConfiguration: configuration)
         closeButton.setImage(image, for: .normal)
         closeButton.tintColor = Vars.backgroundColor
         closeButton.layer.cornerRadius = Constants.buttonCornerRadius

@@ -27,7 +27,7 @@ final class WishEventCreationView: UIViewController {
     private var wishArray: [String] = []
     private var filteredWishArray: [String] = []
     
-    var didSelectItem: ((_ item: WishEvent) -> Void)?
+    var didAddItem: ((_ item: WishEvent) -> Void)?
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
@@ -61,9 +61,9 @@ final class WishEventCreationView: UIViewController {
         view.addSubview(closeButton)
         
         closeButton.translatesAutoresizingMaskIntoConstraints = false
-        let largeFont = UIFont.systemFont(ofSize: 20, weight: .bold)
+        let largeFont = UIFont.systemFont(ofSize: ConstEventCrtn.buttonImageFont, weight: .bold)
         let configuration = UIImage.SymbolConfiguration(font: largeFont)
-        let image = UIImage(systemName: "xmark", withConfiguration: configuration)
+        let image = UIImage(systemName: ConstEventCrtn.closeButtonImage, withConfiguration: configuration)
         closeButton.setImage(image, for: .normal)
         closeButton.tintColor = Vars.backgroundColor
         closeButton.layer.cornerRadius = Constants.buttonCornerRadius
@@ -79,7 +79,7 @@ final class WishEventCreationView: UIViewController {
         titleField.translatesAutoresizingMaskIntoConstraints = false
         titleField.backgroundColor = .white
         titleField.layer.cornerRadius = Constants.buttonCornerRadius
-        titleField.placeholder = "Title..."
+        titleField.placeholder = ConstEventCrtn.titleFieldPlaceholder
         titleField.returnKeyType = UIReturnKeyType.done
         
         titleField.leftView = UIView(frame: CGRect(x: .zero, y: .zero, width: Constants.wishFieldViewWidth, height: Constants.wishFieldViewHeight))
@@ -90,22 +90,22 @@ final class WishEventCreationView: UIViewController {
         titleField.setHeight(Constants.buttonHeight)
         titleField.setWidth(Constants.stackWidth)
         titleField.pinCenterX(to: view.centerXAnchor)
-        titleField.pinTop(to: closeButton.bottomAnchor, 10)
+        titleField.pinTop(to: closeButton.bottomAnchor, ConstEventCrtn.titleFieldTop)
     }
     
     private func configureHintLable() {
         view.addSubview(hintLabel)
         
         hintLabel.translatesAutoresizingMaskIntoConstraints = false
-        hintLabel.text = "Come up with a new wish or select from saved ones:"
+        hintLabel.text = ConstEventCrtn.hintText
         hintLabel.textColor = .white
-        hintLabel.font = UIFont.systemFont(ofSize: 17)
+        hintLabel.font = UIFont.systemFont(ofSize: ConstEventCrtn.hintFS)
         hintLabel.lineBreakMode = .byWordWrapping
-        hintLabel.numberOfLines = 0
+        hintLabel.numberOfLines = .zero
         
         hintLabel.setWidth(Constants.stackWidth)
-        hintLabel.pinLeft(to: view.leadingAnchor, 25)
-        hintLabel.pinTop(to: titleField.bottomAnchor, 10)
+        hintLabel.pinLeft(to: view.leadingAnchor, ConstEventCrtn.hintLeft)
+        hintLabel.pinTop(to: titleField.bottomAnchor, ConstEventCrtn.hintTop)
     }
     
     private func configureTable() {
@@ -123,9 +123,9 @@ final class WishEventCreationView: UIViewController {
         tableView.layer.cornerRadius = Constants.tableCornerRadius
         
         tableView.setWidth(Constants.stackWidth)
-        tableView.setHeight(122)
+        tableView.setHeight(ConstEventCrtn.tableHeight)
         tableView.pinCenterX(to: view.centerXAnchor)
-        tableView.pinTop(to: hintLabel.bottomAnchor, 10)
+        tableView.pinTop(to: hintLabel.bottomAnchor, ConstEventCrtn.tableTop)
     }
     
     private func configureNotesField() {
@@ -134,7 +134,7 @@ final class WishEventCreationView: UIViewController {
         notesField.translatesAutoresizingMaskIntoConstraints = false
         notesField.backgroundColor = .white
         notesField.layer.cornerRadius = Constants.buttonCornerRadius
-        notesField.placeholder = "Notes..."
+        notesField.placeholder = ConstEventCrtn.notesFieldPlaceholder
         notesField.returnKeyType = UIReturnKeyType.done
         
         notesField.leftView = UIView(frame: CGRect(x: .zero, y: .zero, width: Constants.wishFieldViewWidth, height: Constants.wishFieldViewHeight))
@@ -145,7 +145,7 @@ final class WishEventCreationView: UIViewController {
         notesField.setHeight(Constants.buttonHeight)
         notesField.setWidth(Constants.stackWidth)
         notesField.pinCenterX(to: view.centerXAnchor)
-        notesField.pinTop(to: tableView.bottomAnchor, 10)
+        notesField.pinTop(to: tableView.bottomAnchor, ConstEventCrtn.notesFieldTop)
     }
     
     private func configureDateBackgroundView() {
@@ -157,12 +157,12 @@ final class WishEventCreationView: UIViewController {
         
         dateBackgroundView.translatesAutoresizingMaskIntoConstraints = false
         dateBackgroundView.backgroundColor = .white
-        dateBackgroundView.layer.cornerRadius = 20
+        dateBackgroundView.layer.cornerRadius = ConstEventCrtn.dateBVCornerRadius
         
         dateBackgroundView.setWidth(Constants.stackWidth)
-        dateBackgroundView.setHeight(99)
+        dateBackgroundView.setHeight(ConstEventCrtn.dateBVHeight)
         dateBackgroundView.pinCenterX(to: view.centerXAnchor)
-        dateBackgroundView.pinTop(to: notesField.bottomAnchor, 10)
+        dateBackgroundView.pinTop(to: notesField.bottomAnchor, ConstEventCrtn.dateBVTop)
         
         configureStartDateLabel()
         configureStartDatePicker()
@@ -172,14 +172,12 @@ final class WishEventCreationView: UIViewController {
     
     private func configureStartDateLabel() {
         startDateLabel.translatesAutoresizingMaskIntoConstraints = false
-        startDateLabel.text = "Start date:"
+        startDateLabel.text = ConstEventCrtn.startDateLabelText
         startDateLabel.textColor = .black
-        startDateLabel.font = UIFont.systemFont(ofSize: 17)
-        startDateLabel.lineBreakMode = .byWordWrapping
-        startDateLabel.numberOfLines = 1
+        startDateLabel.font = UIFont.systemFont(ofSize: ConstEventCrtn.dateLabelFS)
         
-        startDateLabel.pinTop(to: dateBackgroundView.topAnchor, 10)
-        startDateLabel.pinLeft(to: dateBackgroundView.leadingAnchor, 20)
+        startDateLabel.pinTop(to: dateBackgroundView.topAnchor, ConstEventCrtn.startDateLabelTop)
+        startDateLabel.pinLeft(to: dateBackgroundView.leadingAnchor, ConstEventCrtn.dateLabelLeft)
     }
     
     private func configureStartDatePicker() {
@@ -189,19 +187,17 @@ final class WishEventCreationView: UIViewController {
         startDatePicker.calendar = .autoupdatingCurrent
         
         startDatePicker.pinVertical(to: startDateLabel)
-        startDatePicker.pinRight(to: dateBackgroundView.trailingAnchor, 20)
+        startDatePicker.pinRight(to: dateBackgroundView.trailingAnchor, ConstEventCrtn.datePickerRight)
     }
     
     private func configureEndDateLabel() {
         endDateLabel.translatesAutoresizingMaskIntoConstraints = false
-        endDateLabel.text = "End date:"
+        endDateLabel.text = ConstEventCrtn.endDateLabelText
         endDateLabel.textColor = .black
-        endDateLabel.font = UIFont.systemFont(ofSize: 17)
-        endDateLabel.lineBreakMode = .byWordWrapping
-        endDateLabel.numberOfLines = 1
+        endDateLabel.font = UIFont.systemFont(ofSize: ConstEventCrtn.dateLabelFS)
         
-        endDateLabel.pinTop(to: startDateLabel.bottomAnchor, 10)
-        endDateLabel.pinLeft(to: dateBackgroundView.leadingAnchor, 20)
+        endDateLabel.pinTop(to: startDateLabel.bottomAnchor, ConstEventCrtn.endDateLabelTop)
+        endDateLabel.pinLeft(to: dateBackgroundView.leadingAnchor, ConstEventCrtn.dateLabelLeft)
     }
     
     private func configureEndDatePicker() {
@@ -211,14 +207,14 @@ final class WishEventCreationView: UIViewController {
         endDatePicker.calendar = .autoupdatingCurrent
         
         endDatePicker.pinVertical(to: endDateLabel)
-        endDatePicker.pinRight(to: dateBackgroundView.trailingAnchor, 20)
+        endDatePicker.pinRight(to: dateBackgroundView.trailingAnchor, ConstEventCrtn.datePickerRight)
     }
     
     private func configureAddEventButton() {
         view.addSubview(addEventButton)
         
         addEventButton.translatesAutoresizingMaskIntoConstraints = false
-        addEventButton.setTitle("Add event", for: .normal)
+        addEventButton.setTitle(ConstEventCrtn.addButtonTitle, for: .normal)
         addEventButton.titleLabel?.font = UIFont.systemFont(ofSize: Constants.buttonTitleFS, weight: .bold)
         addEventButton.setTitleColor(view.backgroundColor, for: .normal)
         addEventButton.setTitleColor(.white, for: .highlighted)
@@ -229,7 +225,7 @@ final class WishEventCreationView: UIViewController {
         addEventButton.setHeight(Constants.buttonHeight)
         addEventButton.setWidth(Constants.stackWidth)
         addEventButton.pinCenterX(to: view.centerXAnchor)
-        addEventButton.pinTop(to: dateBackgroundView.bottomAnchor, 10)
+        addEventButton.pinTop(to: dateBackgroundView.bottomAnchor, ConstEventCrtn.addButtonTop)
     }
     
     @objc
@@ -243,7 +239,7 @@ final class WishEventCreationView: UIViewController {
         var endDateConv = endDatePicker.date.convertedDate
         
         if titleField.text != nil && titleField.text?.isEmpty == false && (startDateConv <= endDateConv) {
-            endDateConv = endDateConv.addingTimeInterval(23 * 60 * 60 + 59 * 60)
+            endDateConv = endDateConv.addingTimeInterval(ConstEventCrtn.endDateAddingTime)
             
             let calendarEvent = CalendarEventModel(
                 title: titleField.text!,
@@ -263,7 +259,7 @@ final class WishEventCreationView: UIViewController {
                 
                 do {
                     try context.save()
-                    didSelectItem?(event)
+                    didAddItem?(event)
                     dismiss(animated: true)
                 } catch {
                     showAlertSaveError()
@@ -277,19 +273,19 @@ final class WishEventCreationView: UIViewController {
     }
     
     private func showAlertSaveError() {
-        let alert = UIAlertController(title: "Data saving error", message: "Failed to save data, please try again.", preferredStyle: .alert)
+        let alert = UIAlertController(title: ConstEventCrtn.saveErrorTitle, message: ConstEventCrtn.saveErrorMessage, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: Constants.alertActionOK, style: .default))
         self.present(alert, animated: true, completion: nil)
     }
     
     private func showAlertCreationError() {
-        let alert = UIAlertController(title: "Event creation error", message: "Failed to create event, please try again.", preferredStyle: .alert)
+        let alert = UIAlertController(title: ConstEventCrtn.creationErrorTitle, message: ConstEventCrtn.creationErrorMessage, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: Constants.alertActionOK, style: .default))
         self.present(alert, animated: true, completion: nil)
     }
     
     private func showAlertInvalidData() {
-        let alert = UIAlertController(title: "Invalid data", message: "Please check that you have filled in the title.", preferredStyle: .alert)
+        let alert = UIAlertController(title: ConstEventCrtn.invalidDataTitle, message: ConstEventCrtn.invalidDataMessage, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: Constants.alertActionOK, style: .default))
         self.present(alert, animated: true, completion: nil)
     }
@@ -297,7 +293,7 @@ final class WishEventCreationView: UIViewController {
     @objc
     func valueChanged(sender: UITextField) {
         if let text = titleField.text {
-            if (text == "") {
+            if (text.isEmpty) {
                 filteredWishArray = wishArray
             } else {
                 filteredWishArray = wishArray.filter({ $0.lowercased().contains(text.lowercased()) })
