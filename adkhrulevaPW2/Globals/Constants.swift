@@ -39,6 +39,7 @@ enum Constants {
     static let sliderLeading: CGFloat = 20
     static let sliderMin: Double = 0
     static let sliderMax: Double = 1
+    static let sliderThumbImage: String = "airplane"
     
     static let stackBottom: CGFloat = 10
     static let stackLeading: CGFloat = 20
@@ -86,10 +87,7 @@ enum Constants {
     static let addWishButtonText: String = "Add wish"
     static let addWishButtonTop: CGFloat = 10
     
-    static let likeButtonImageNormal: String = "heart"
-    static let likeButtonImageHighlighted: String = "heart.fill"
-    static let likeButtonTintColor: UIColor = .systemPink
-    static let likeButtonRight: CGFloat = 10
+    static let writtenWCLayoutPriority: Float = 999
     
     static let alertTitle: String = "Error"
     static let alertMessage: String = "To add a wish, the text of the wish must contain some characters other than spaces."

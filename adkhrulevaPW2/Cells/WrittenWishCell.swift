@@ -36,7 +36,7 @@ final class WrittenWishCell: UITableViewCell {
         
         wishLabel.pinLeft(to: leadingAnchor, Constants.cellWrapOffsetH)
         wishLabel.pinRight(to: trailingAnchor, Constants.cellWrapOffsetH)
-        wishLabel.pinTop(to: topAnchor, Constants.cellWrapOffsetV).priority = UILayoutPriority(999)
-        wishLabel.pinBottom(to: bottomAnchor, Constants.cellWrapOffsetV).priority = UILayoutPriority(999)
+        wishLabel.pinTop(to: topAnchor, Constants.cellWrapOffsetV).priority = UILayoutPriority(Constants.writtenWCLayoutPriority)
+        wishLabel.pinBottom(to: bottomAnchor, Constants.cellWrapOffsetV).priority = UILayoutPriority(Constants.writtenWCLayoutPriority)
     }
 }

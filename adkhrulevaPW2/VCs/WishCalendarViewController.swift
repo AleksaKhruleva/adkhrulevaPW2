@@ -19,7 +19,7 @@ final class WishCalendarViewController: UIViewController, UICollectionViewDelega
     override func viewDidLoad() {
         super.viewDidLoad()
         getWishEvents()
-//        deleteWishEvents()
+        //        deleteWishEvents()
         configureUI()
     }
     
@@ -62,7 +62,7 @@ final class WishCalendarViewController: UIViewController, UICollectionViewDelega
             layout.invalidateLayout()
         }
         
-        collectionView.register(WishEventCell.self, forCellWithReuseIdentifier: WishEventCell.reuseIdentifier)
+        collectionView.register(WishEventCell.self, forCellWithReuseIdentifier: ConstWishEvCell.reuseIdentifier)
         
         view.addSubview(collectionView)
         collectionView.pinHorizontal(to: view)
@@ -94,7 +94,7 @@ extension WishCalendarViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: WishEventCell.reuseIdentifier, for: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ConstWishEvCell.reuseIdentifier, for: indexPath)
         guard let wishEventCell = cell as? WishEventCell else { return cell }
         wishEventCell.configure(with: eventArray[indexPath.row])
         return cell
@@ -112,7 +112,7 @@ extension WishCalendarViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return ConstCalendar.collectionSpace
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return ConstCalendar.collectionSpace
     }
@@ -122,7 +122,7 @@ extension WishCalendarViewController: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        print("Cell tapped at index \(indexPath.item)")
+        //        print("Cell tapped at index \(indexPath.item)")
     }
 }
 

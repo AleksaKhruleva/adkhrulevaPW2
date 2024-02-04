@@ -50,7 +50,7 @@ final class CalendarManager: CalendarManaging {
             do {
                 try self.eventStore.save(event, span: .thisEvent)
             } catch let error as NSError {
-                print("failed to save event with error : \(error)")
+                print(Constants.fatalError + "\(error.description)")
                 completion?(false)
             }
             

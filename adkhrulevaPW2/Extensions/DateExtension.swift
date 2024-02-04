@@ -16,10 +16,8 @@ extension Date {
         let formattedDate = dateFormatter.string(from: self)
         
         dateFormatter.locale = .current
-        
         dateFormatter.dateFormat = dateFormat as String
         let sourceDate = dateFormatter.date(from: formattedDate as String)
-        
         return sourceDate ?? Date()
     }
     
