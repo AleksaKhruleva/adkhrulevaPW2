@@ -126,6 +126,9 @@ final class WishMakerViewController: UIViewController {
         view.backgroundColor = viewBackgroundColor
         titleView.textColor = oppositeColor
         descriptionView.textColor = oppositeColor
+        for s in stackView.arrangedSubviews {
+            s.backgroundColor = oppositeColor
+        }
         for button in [self.hideButton, self.showWishesButton, self.scheduleButton] {
             updateButton(
                 button: button,

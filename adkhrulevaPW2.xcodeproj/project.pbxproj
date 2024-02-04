@@ -24,6 +24,7 @@
 		559EF1CF2ACDB81F0003FE55 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559EF1CE2ACDB81F0003FE55 /* SceneDelegate.swift */; };
 		559EF1D62ACDB8210003FE55 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 559EF1D52ACDB8210003FE55 /* Assets.xcassets */; };
 		559EF1D92ACDB8210003FE55 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 559EF1D72ACDB8210003FE55 /* LaunchScreen.storyboard */; };
+		55B59CE62B6FE0CE0061B568 /* VCExtention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B59CE52B6FE0CE0061B568 /* VCExtention.swift */; };
 		55D0A0562AFB89B2003C7B38 /* UIViewPin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D0A0552AFB89B2003C7B38 /* UIViewPin.swift */; };
 		55D0A05A2AFB9FB2003C7B38 /* WrittenWishCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D0A0592AFB9FB2003C7B38 /* WrittenWishCell.swift */; };
 /* End PBXBuildFile section */
@@ -48,6 +49,7 @@
 		559EF1D52ACDB8210003FE55 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		559EF1D82ACDB8210003FE55 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		559EF1DA2ACDB8210003FE55 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		55B59CE52B6FE0CE0061B568 /* VCExtention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VCExtention.swift; sourceTree = "<group>"; };
 		55D0A0552AFB89B2003C7B38 /* UIViewPin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewPin.swift; sourceTree = "<group>"; };
 		55D0A0592AFB9FB2003C7B38 /* WrittenWishCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WrittenWishCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -81,6 +83,7 @@
 				55D0A0552AFB89B2003C7B38 /* UIViewPin.swift */,
 				5577B15B2ACEE04D0008294E /* UIColorExtension.swift */,
 				55951E632B6DB9EF0090B6C4 /* DateExtension.swift */,
+				55B59CE52B6FE0CE0061B568 /* VCExtention.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -231,6 +234,7 @@
 				554A40FA2B6E89F700397DEA /* CalendarManager.swift in Sources */,
 				55D0A0562AFB89B2003C7B38 /* UIViewPin.swift in Sources */,
 				559EF1CF2ACDB81F0003FE55 /* SceneDelegate.swift in Sources */,
+				55B59CE62B6FE0CE0061B568 /* VCExtention.swift in Sources */,
 				5577B15E2ACEE06C0008294E /* Constants.swift in Sources */,
 				55951E592B6D9A4F0090B6C4 /* WishEventCell.swift in Sources */,
 			);

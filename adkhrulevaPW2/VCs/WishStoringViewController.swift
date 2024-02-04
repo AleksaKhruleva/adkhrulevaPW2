@@ -17,14 +17,17 @@ final class WishStoringViewController: UIViewController {
     
     private var wishArray: [String] = []
     
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        hideKeyboardWhenTappedAround()
         wishArray = defaults.array(forKey: Constants.wishArrayKey) as? [String] ?? []
         wishField.delegate = self
         tableView.dataSource = self
         configureUI()
     }
     
+    // MARK: - UI Configuration
     private func configureUI() {
         view.backgroundColor = Vars.oppositeBackgroundColor
         configureCloseButton()
@@ -77,7 +80,6 @@ final class WishStoringViewController: UIViewController {
         addWishButton.titleLabel?.font = UIFont.systemFont(ofSize: Constants.buttonTitleFS, weight: .bold)
         addWishButton.setTitleColor(view.backgroundColor, for: .normal)
         addWishButton.setTitleColor(.white, for: .highlighted)
-        addWishButton.setTitleColor(.lightGray, for: .disabled)
         addWishButton.backgroundColor = .white
         addWishButton.layer.cornerRadius = Constants.buttonCornerRadius
         addWishButton.addTarget(self, action: #selector(addWishButtonPressed), for: .touchUpInside)
