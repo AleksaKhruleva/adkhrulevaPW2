@@ -39,6 +39,7 @@ final class WishEventCreationView: UIViewController {
         tableView.delegate = self
         titleField.delegate = self
         titleField.addTarget(self, action: #selector(valueChanged), for: .allEditingEvents)
+        startDatePicker.addTarget(self, action: #selector(startDPValueChanged), for: .editingDidEnd)
         notesField.delegate = self
         configureUI()
     }
@@ -288,12 +289,13 @@ final class WishEventCreationView: UIViewController {
     }
     
     private func showAlertInvalidData() {
-        let alert = UIAlertController(title: "Invalid data", message: "Please check that you have filled in the title and that the end date is not less than the start date.", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Invalid data", message: "Please check that you have filled in the title.", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: Constants.alertActionOK, style: .default))
         self.present(alert, animated: true, completion: nil)
     }
     
-    @objc func valueChanged(sender: UITextField) {
+    @objc
+    func valueChanged(sender: UITextField) {
         if let text = titleField.text {
             if (text == "") {
                 filteredWishArray = wishArray
@@ -301,6 +303,14 @@ final class WishEventCreationView: UIViewController {
                 filteredWishArray = wishArray.filter({ $0.lowercased().contains(text.lowercased()) })
             }
             tableView.reloadData()
+        }
+    }
+    
+    @objc
+    private func startDPValueChanged() {
+        if (startDatePicker.date > endDatePicker.minimumDate ?? Date()) {
+            endDatePicker.minimumDate = startDatePicker.date
+            endDatePicker.date = startDatePicker.date
         }
     }
 }
