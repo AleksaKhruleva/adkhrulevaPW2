@@ -12,7 +12,7 @@ enum Constants {
     static let appDescr: String = "A magical application that will fulfill any of your color wishes"
     
     static let appTitleFS: CGFloat = 32
-    static let appDescrFS: CGFloat = 25
+    static let appDescrFS: CGFloat = 20
     static let appDescrLineNums: Int = 3
     
     static let red: String = "Red"

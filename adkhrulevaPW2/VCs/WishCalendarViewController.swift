@@ -32,20 +32,20 @@ final class WishCalendarViewController: UIViewController, UICollectionViewDelega
         configureCollection()
     }
     
-    private func configureAddButton() {
-        let largeFont = UIFont.systemFont(ofSize: ConstCalendar.buttonImageFont, weight: .bold)
-        let configuration = UIImage.SymbolConfiguration(font: largeFont)
-        let image = UIImage(systemName: ConstCalendar.addButtonImage, withConfiguration: configuration)
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: image, style: .plain, target: self, action: #selector(addButtonTapped))
-        navigationItem.rightBarButtonItem?.tintColor = Vars.oppositeBackgroundColor
-    }
-    
     private func configureBackButton() {
         let largeFont = UIFont.systemFont(ofSize: ConstCalendar.buttonImageFont, weight: .bold)
         let configuration = UIImage.SymbolConfiguration(font: largeFont)
         let image = UIImage(systemName: ConstCalendar.backButtonImage, withConfiguration: configuration)
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: image, style: .plain, target: self, action: #selector(backButtonTapped))
         navigationItem.leftBarButtonItem?.tintColor = Vars.oppositeBackgroundColor
+    }
+    
+    private func configureAddButton() {
+        let largeFont = UIFont.systemFont(ofSize: ConstCalendar.buttonImageFont, weight: .bold)
+        let configuration = UIImage.SymbolConfiguration(font: largeFont)
+        let image = UIImage(systemName: ConstCalendar.addButtonImage, withConfiguration: configuration)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: image, style: .plain, target: self, action: #selector(addButtonTapped))
+        navigationItem.rightBarButtonItem?.tintColor = Vars.oppositeBackgroundColor
     }
     
     private func configureCollection() {

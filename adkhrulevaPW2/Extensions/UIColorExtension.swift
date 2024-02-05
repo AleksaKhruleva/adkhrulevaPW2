@@ -40,4 +40,22 @@ extension UIColor {
             return .white
         }
     }
+    
+    func rgb() -> (red: UInt, green: UInt, blue: UInt, alpha: UInt)? {
+        var fRed : CGFloat = 0
+        var fGreen : CGFloat = 0
+        var fBlue : CGFloat = 0
+        var fAlpha: CGFloat = 0
+        if self.getRed(&fRed, green: &fGreen, blue: &fBlue, alpha: &fAlpha) {
+            let iRed =  UInt(fRed * 255.0 + 0.5)
+            let iGreen = UInt(fGreen * 255.0 + 0.5)
+            let iBlue = UInt(fBlue * 255.0 + 0.5)
+            let iAlpha = UInt(fAlpha * 255.0 + 0.5)
+            
+            return (red:iRed, green:iGreen, blue:iBlue, alpha:iAlpha)
+        } else {
+            // Could not extract RGBA components:
+            return nil
+        }
+    }
 }

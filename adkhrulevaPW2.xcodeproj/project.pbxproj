@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		552BF6782B6EBF6200A74F0D /* Vars.swift in Sources */ = {isa = PBXBuildFile; fileRef = 552BF6772B6EBF6200A74F0D /* Vars.swift */; };
+		55424FA82B707128002F8F23 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55424FA72B707128002F8F23 /* GameViewController.swift */; };
 		554973782AFE37B400748342 /* WishStoringViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 554973772AFE37B400748342 /* WishStoringViewController.swift */; };
 		554A40FA2B6E89F700397DEA /* CalendarManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 554A40F92B6E89F700397DEA /* CalendarManager.swift */; };
 		554A40FD2B6E9C3600397DEA /* WishEventModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 554A40FB2B6E9C3600397DEA /* WishEventModel.xcdatamodeld */; };
@@ -33,6 +34,7 @@
 
 /* Begin PBXFileReference section */
 		552BF6772B6EBF6200A74F0D /* Vars.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vars.swift; sourceTree = "<group>"; };
+		55424FA72B707128002F8F23 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		554973772AFE37B400748342 /* WishStoringViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishStoringViewController.swift; sourceTree = "<group>"; };
 		554A40F92B6E89F700397DEA /* CalendarManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarManager.swift; sourceTree = "<group>"; };
 		554A40FC2B6E9C3600397DEA /* WishEventModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = WishEventModel.xcdatamodel; sourceTree = "<group>"; };
@@ -77,6 +79,7 @@
 				55951E522B6D935B0090B6C4 /* WishCalendarViewController.swift */,
 				55951E612B6DAB830090B6C4 /* WishEventCreationView.swift */,
 				5577B15F2ACEE1460008294E /* CustomSliderView.swift */,
+				55424FA72B707128002F8F23 /* GameViewController.swift */,
 			);
 			path = VCs;
 			sourceTree = "<group>";
@@ -232,6 +235,7 @@
 				55951E532B6D935B0090B6C4 /* WishCalendarViewController.swift in Sources */,
 				554A40FD2B6E9C3600397DEA /* WishEventModel.xcdatamodeld in Sources */,
 				55951E622B6DAB830090B6C4 /* WishEventCreationView.swift in Sources */,
+				55424FA82B707128002F8F23 /* GameViewController.swift in Sources */,
 				559EF1CD2ACDB81F0003FE55 /* AppDelegate.swift in Sources */,
 				5577B1562ACED6F00008294E /* WishMakerViewController.swift in Sources */,
 				55D0A05A2AFB9FB2003C7B38 /* WrittenWishCell.swift in Sources */,

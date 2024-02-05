@@ -11,6 +11,7 @@ final class WishMakerViewController: UIViewController {
     
     private let titleView: UILabel = UILabel()
     private let descriptionView: UILabel = UILabel()
+    private let gameButton: UIButton = UIButton(type: .system)
     private let hideButton: UIButton = UIButton(type: .system)
     private let stackView: UIStackView = UIStackView()
     private let showWishesButton: UIButton = UIButton(type: .system)
@@ -43,6 +44,7 @@ final class WishMakerViewController: UIViewController {
         configureShowWishesButton()
         configureSliders()
         configureHideButton()
+        configureGameButton()
     }
     
     private func configureTitle() {
@@ -71,6 +73,42 @@ final class WishMakerViewController: UIViewController {
         descriptionView.pinCenterX(to: view.centerXAnchor)
         descriptionView.pinTop(to: titleView.bottomAnchor, Constants.descrTop)
         descriptionView.pinLeft(to: view.leadingAnchor, Constants.descrLeading)
+    }
+    
+    private func configureGameButton() {
+        view.addSubview(gameButton)
+        
+        gameButton.translatesAutoresizingMaskIntoConstraints = false
+        gameButton.setTitle("Mini game?", for: .normal)
+        gameButton.titleLabel?.font = UIFont.systemFont(ofSize: Constants.buttonTitleFS, weight: .bold)
+        gameButton.setTitleColor(view.backgroundColor, for: .normal)
+        gameButton.setTitleColor(titleView.textColor, for: .highlighted)
+        gameButton.backgroundColor = titleView.textColor
+        gameButton.layer.cornerRadius = Constants.buttonCornerRadius
+        gameButton.addTarget(self, action: #selector(gameButtonPressed), for: .touchUpInside)
+        
+        gameButton.setHeight(Constants.buttonHeight)
+        gameButton.setWidth(Constants.stackWidth)
+        gameButton.pinCenterX(to: view.centerXAnchor)
+        gameButton.pinBottom(to: hideButton.topAnchor, Constants.hideButtonBottom)
+    }
+    
+    private func configureHideButton() {
+        view.addSubview(hideButton)
+        
+        hideButton.translatesAutoresizingMaskIntoConstraints = false
+        hideButton.setTitle(Constants.hideButtonTextHide, for: .normal)
+        hideButton.titleLabel?.font = UIFont.systemFont(ofSize: Constants.buttonTitleFS, weight: .bold)
+        hideButton.setTitleColor(view.backgroundColor, for: .normal)
+        hideButton.setTitleColor(titleView.textColor, for: .highlighted)
+        hideButton.backgroundColor = titleView.textColor
+        hideButton.layer.cornerRadius = Constants.buttonCornerRadius
+        hideButton.addTarget(self, action: #selector(hideButtonPressed), for: .touchUpInside)
+        
+        hideButton.setHeight(Constants.buttonHeight)
+        hideButton.setWidth(Constants.stackWidth)
+        hideButton.pinCenterX(to: view.centerXAnchor)
+        hideButton.pinBottom(to: stackView.topAnchor, Constants.hideButtonBottom)
     }
     
     private func configureSliders() {
@@ -119,7 +157,7 @@ final class WishMakerViewController: UIViewController {
         }
     }
     
-    func updateUI(viewBackgroundColor: UIColor) {
+    private func updateUI(viewBackgroundColor: UIColor) {
         let oppositeColor = UIColor.oppositeColor(baseColor: viewBackgroundColor)
         Vars.backgroundColor = viewBackgroundColor
         Vars.oppositeBackgroundColor = oppositeColor
@@ -129,7 +167,7 @@ final class WishMakerViewController: UIViewController {
         for s in stackView.arrangedSubviews {
             s.backgroundColor = oppositeColor
         }
-        for button in [self.hideButton, self.showWishesButton, self.scheduleButton] {
+        for button in [self.hideButton, self.showWishesButton, self.scheduleButton, self.gameButton] {
             updateButton(
                 button: button,
                 titleColorNormal: viewBackgroundColor,
@@ -139,28 +177,10 @@ final class WishMakerViewController: UIViewController {
         }
     }
     
-    func updateButton(button: UIButton, titleColorNormal: UIColor, titleColorHighlighted: UIColor, backgroundColor: UIColor) {
+    private func updateButton(button: UIButton, titleColorNormal: UIColor, titleColorHighlighted: UIColor, backgroundColor: UIColor) {
         button.setTitleColor(titleColorNormal, for: .normal)
         button.setTitleColor(titleColorHighlighted, for: .highlighted)
         button.backgroundColor = backgroundColor
-    }
-    
-    private func configureHideButton() {
-        view.addSubview(hideButton)
-        
-        hideButton.translatesAutoresizingMaskIntoConstraints = false
-        hideButton.setTitle(Constants.hideButtonTextHide, for: .normal)
-        hideButton.titleLabel?.font = UIFont.systemFont(ofSize: Constants.buttonTitleFS, weight: .bold)
-        hideButton.setTitleColor(view.backgroundColor, for: .normal)
-        hideButton.setTitleColor(titleView.textColor, for: .highlighted)
-        hideButton.backgroundColor = titleView.textColor
-        hideButton.layer.cornerRadius = Constants.buttonCornerRadius
-        hideButton.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
-        
-        hideButton.setHeight(Constants.buttonHeight)
-        hideButton.setWidth(Constants.stackWidth)
-        hideButton.pinCenterX(to: view.centerXAnchor)
-        hideButton.pinBottom(to: stackView.topAnchor, Constants.hideButtonBottom)
     }
     
     private func configureShowWishesButton() {
@@ -200,7 +220,7 @@ final class WishMakerViewController: UIViewController {
     }
     
     @objc
-    private func buttonPressed() {
+    private func hideButtonPressed() {
         stackView.isHidden.toggle()
         hideButton.setTitle(stackView.isHidden ? Constants.hideButtonTextShow : Constants.hideButtonTextHide, for: .normal)
     }
@@ -218,6 +238,13 @@ final class WishMakerViewController: UIViewController {
         let oppositeColor = UIColor.oppositeColor(baseColor: view.backgroundColor ?? .random())
         Vars.oppositeBackgroundColor = oppositeColor
         let vc = WishCalendarViewController()
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    @objc
+    private func gameButtonPressed() {
+        let randomColor = UIColor.random()
+        let vc = GameViewController(randomColor: randomColor)
         navigationController?.pushViewController(vc, animated: true)
     }
 }
