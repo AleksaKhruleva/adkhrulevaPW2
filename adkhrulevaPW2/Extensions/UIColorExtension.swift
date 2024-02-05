@@ -41,21 +41,19 @@ extension UIColor {
         }
     }
     
-    func rgb() -> (red: UInt, green: UInt, blue: UInt, alpha: UInt)? {
-        var fRed : CGFloat = 0
-        var fGreen : CGFloat = 0
-        var fBlue : CGFloat = 0
-        var fAlpha: CGFloat = 0
-        if self.getRed(&fRed, green: &fGreen, blue: &fBlue, alpha: &fAlpha) {
-            let iRed =  UInt(fRed * 255.0 + 0.5)
-            let iGreen = UInt(fGreen * 255.0 + 0.5)
-            let iBlue = UInt(fBlue * 255.0 + 0.5)
-            let iAlpha = UInt(fAlpha * 255.0 + 0.5)
+    func getSRGBValues(from color: UIColor) -> (red: Int, green: Int, blue: Int) {
+        var fRed: CGFloat = .zero
+        var fGreen: CGFloat = .zero
+        var fBlue: CGFloat = .zero
+        var fAlpha: CGFloat = .zero
+        if color.getRed(&fRed, green: &fGreen, blue: &fBlue, alpha: &fAlpha) {
+            let red = Int(max(.zero, min(fRed * 255.0 + 0.5, 255.0)))
+            let green = Int(max(.zero, min(fGreen * 255.0 + 0.5, 255.0)))
+            let blue = Int(max(.zero, min(fBlue * 255.0 + 0.5, 255.0)))
             
-            return (red:iRed, green:iGreen, blue:iBlue, alpha:iAlpha)
+            return (red: red, green: green, blue: blue)
         } else {
-            // Could not extract RGBA components:
-            return nil
+            return (red: .zero, green: .zero, blue: .zero)
         }
     }
 }

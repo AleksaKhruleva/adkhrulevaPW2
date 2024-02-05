@@ -79,11 +79,10 @@ final class WishMakerViewController: UIViewController {
         view.addSubview(gameButton)
         
         gameButton.translatesAutoresizingMaskIntoConstraints = false
-        gameButton.setTitle("Mini game?", for: .normal)
+        gameButton.setTitle(Constants.gameButtonTitle, for: .normal)
         gameButton.titleLabel?.font = UIFont.systemFont(ofSize: Constants.buttonTitleFS, weight: .bold)
-        gameButton.setTitleColor(view.backgroundColor, for: .normal)
-        gameButton.setTitleColor(titleView.textColor, for: .highlighted)
-        gameButton.backgroundColor = titleView.textColor
+        gameButton.setTitleColor(titleView.textColor, for: .normal)
+        gameButton.setTitleColor(view.backgroundColor, for: .highlighted)
         gameButton.layer.cornerRadius = Constants.buttonCornerRadius
         gameButton.addTarget(self, action: #selector(gameButtonPressed), for: .touchUpInside)
         
@@ -167,7 +166,9 @@ final class WishMakerViewController: UIViewController {
         for s in stackView.arrangedSubviews {
             s.backgroundColor = oppositeColor
         }
-        for button in [self.hideButton, self.showWishesButton, self.scheduleButton, self.gameButton] {
+        self.gameButton.setTitleColor(oppositeColor, for: .normal)
+        self.gameButton.setTitleColor(viewBackgroundColor, for: .highlighted)
+        for button in [self.hideButton, self.showWishesButton, self.scheduleButton] {
             updateButton(
                 button: button,
                 titleColorNormal: viewBackgroundColor,

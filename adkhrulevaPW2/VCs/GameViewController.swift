@@ -11,6 +11,7 @@ final class GameViewController: UIViewController {
     
     private let rulesLabel: UILabel = UILabel()
     private let checkButton: UIButton = UIButton()
+    private let verdictLabel: UILabel = UILabel()
     
     private var groupData: [Int: (textField: UITextField, buttonInc: UIButton, buttonDec: UIButton)] = [:]
     
@@ -19,12 +20,9 @@ final class GameViewController: UIViewController {
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         hideKeyboardWhenTappedAround()
         view.backgroundColor = randomColor
-        
         navigationItem.hidesBackButton = true
-        
         configureUI()
     }
     
@@ -39,16 +37,14 @@ final class GameViewController: UIViewController {
     
     // MARK: - UI Configuration
     private func configureUI() {
-        let numberOfGroups = 3
-        
-        for groupIndex in 0 ..< numberOfGroups {
-            let yOffset = CGFloat(groupIndex) * 70
-            createElementsGroup(at: yOffset, tag: groupIndex)
-        }
-        
         configureBackButton()
         configureRulesLabel()
+        for groupIndex in .zero ..< ConstGame.numberOfGroups {
+            let yOffset = CGFloat(groupIndex) * ConstGame.offsetCoef
+            createElementsGroup(at: yOffset, tag: groupIndex)
+        }
         configureCheckButton()
+        configureVerdictLabel()
     }
     
     private func configureBackButton() {
@@ -56,28 +52,29 @@ final class GameViewController: UIViewController {
         let configuration = UIImage.SymbolConfiguration(font: largeFont)
         let image = UIImage(systemName: ConstCalendar.backButtonImage, withConfiguration: configuration)
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: image, style: .plain, target: self, action: #selector(backButtonTapped))
-        navigationItem.leftBarButtonItem?.tintColor = .black
+        navigationItem.leftBarButtonItem?.tintColor = .white
     }
     
     private func configureRulesLabel() {
         view.addSubview(rulesLabel)
         
         rulesLabel.translatesAutoresizingMaskIntoConstraints = false
-        rulesLabel.text = "The point of the game:\n\ntry to guess the exact sRGB values of the current background color :))"
+        rulesLabel.text = ConstGame.rules
         rulesLabel.textColor = .white
-        rulesLabel.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
+        rulesLabel.font = UIFont.systemFont(ofSize: ConstGame.rulesLabelFS, weight: .semibold)
         rulesLabel.lineBreakMode = .byWordWrapping
         rulesLabel.numberOfLines = .zero
         rulesLabel.textAlignment = .center
         
-        rulesLabel.setWidth(300)
+        rulesLabel.setWidth(ConstGame.rulesLabelWidth)
         rulesLabel.pinCenterX(to: view.centerXAnchor)
-        rulesLabel.pinTop(to: view.safeAreaLayoutGuide.topAnchor, 20)
+        rulesLabel.pinTop(to: view.safeAreaLayoutGuide.topAnchor, ConstGame.rulesLabelTop)
     }
     
     private func createElementsGroup(at yOffset: CGFloat, tag: Int) {
         let tf: UITextField = UITextField()
         tf.tag = tag
+        tf.delegate = self
         configureTF(textField: tf, at: yOffset)
     }
     
@@ -87,19 +84,22 @@ final class GameViewController: UIViewController {
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.backgroundColor = .white
         textField.layer.cornerRadius = Constants.buttonCornerRadius
-        textField.text = "0"
         textField.keyboardType = .numberPad
         textField.returnKeyType = UIReturnKeyType.done
         textField.textAlignment = .center
+        textField.font = .boldSystemFont(ofSize: ConstGame.textFieldFS)
         
         switch (textField.tag) {
-        case 0:
+        case ConstGame.red:
+            textField.placeholder = ConstGame.placeholderRed
             textField.textColor = UIColor.red
             break;
-        case 1:
+        case ConstGame.green:
+            textField.placeholder = ConstGame.placeholderGreen
             textField.textColor = UIColor.green
             break;
-        case 2:
+        case ConstGame.blue:
+            textField.placeholder = ConstGame.placeholderBlue
             textField.textColor = UIColor.blue
             break
         default:
@@ -107,60 +107,58 @@ final class GameViewController: UIViewController {
         }
         
         textField.setHeight(Constants.buttonHeight)
-        textField.setWidth(60)
+        textField.setWidth(ConstGame.textFieldWidth)
         textField.pinCenterX(to: view.centerXAnchor)
-        textField.pinTop(to: view.topAnchor, 230 + yOffset)
+        textField.pinTop(to: rulesLabel.bottomAnchor, ConstGame.textFieldTop + yOffset)
         
         let incButton: UIButton = UIButton(type: .system)
         incButton.tag = textField.tag
         view.addSubview(incButton)
-        
         configureIB(button: incButton)
-        
-        incButton.setWidth(50)
-        incButton.pinLeft(to: textField.trailingAnchor, 20)
+        incButton.setWidth(ConstGame.buttonWidth)
+        incButton.pinLeft(to: textField.trailingAnchor, ConstGame.buttonSide)
         incButton.pinVertical(to: textField)
         
         let decButton: UIButton = UIButton(type: .system)
         decButton.tag = textField.tag
         view.addSubview(decButton)
-        
         configureDB(button: decButton)
-        
-        decButton.setWidth(50)
-        decButton.pinRight(to: textField.leadingAnchor, 20)
+        decButton.setWidth(ConstGame.buttonWidth)
+        decButton.pinRight(to: textField.leadingAnchor, ConstGame.buttonSide)
         decButton.pinVertical(to: textField)
         
-        groupData[incButton.tag] = (textField, incButton, decButton)
+        groupData[textField.tag] = (textField, incButton, decButton)
     }
     
     private func configureIB(button: UIButton) {
         button.translatesAutoresizingMaskIntoConstraints = false
         let largeFont = UIFont.systemFont(ofSize: ConstCalendar.buttonImageFont, weight: .bold)
         let configuration = UIImage.SymbolConfiguration(font: largeFont)
-        let image = UIImage(systemName: "plus", withConfiguration: configuration)
+        let image = UIImage(systemName: ConstGame.incButtonImage, withConfiguration: configuration)
         button.setImage(image, for: .normal)
+        button.tintColor = view.backgroundColor
         button.addTarget(self, action: #selector(incrementButtonPressed(_:)), for: .touchUpInside)
         button.backgroundColor = .white
-        button.layer.cornerRadius = 23
+        button.layer.cornerRadius = ConstGame.buttonCornerRadius
     }
     
     private func configureDB(button: UIButton) {
         button.translatesAutoresizingMaskIntoConstraints = false
         let largeFont = UIFont.systemFont(ofSize: ConstCalendar.buttonImageFont, weight: .bold)
         let configuration = UIImage.SymbolConfiguration(font: largeFont)
-        let image = UIImage(systemName: "minus", withConfiguration: configuration)
+        let image = UIImage(systemName: ConstGame.decButtonImage, withConfiguration: configuration)
         button.setImage(image, for: .normal)
+        button.tintColor = view.backgroundColor
         button.addTarget(self, action: #selector(decrementButtonPressed(_:)), for: .touchUpInside)
         button.backgroundColor = .white
-        button.layer.cornerRadius = 23
+        button.layer.cornerRadius = ConstGame.buttonCornerRadius
     }
     
     private func configureCheckButton() {
         view.addSubview(checkButton)
         
         checkButton.translatesAutoresizingMaskIntoConstraints = false
-        checkButton.setTitle("Check", for: .normal)
+        checkButton.setTitle(ConstGame.checkButtonTitle, for: .normal)
         checkButton.titleLabel?.font = UIFont.systemFont(ofSize: Constants.buttonTitleFS, weight: .bold)
         checkButton.setTitleColor(view.backgroundColor, for: .normal)
         checkButton.setTitleColor(.white, for: .highlighted)
@@ -169,9 +167,29 @@ final class GameViewController: UIViewController {
         checkButton.addTarget(self, action: #selector(checkButtonPressed), for: .touchUpInside)
         
         checkButton.setHeight(Constants.buttonHeight)
-        checkButton.setWidth(Constants.stackWidth)
+        checkButton.setWidth(ConstGame.checkButtonWidth)
         checkButton.pinCenterX(to: view.centerXAnchor)
-        checkButton.pinBottom(to: view.bottomAnchor, 100)
+        
+        guard let g = groupData[ConstGame.blue] else {
+            checkButton.pinBottom(to: view.bottomAnchor, ConstGame.checkButtonBottom)
+            return
+        }
+        checkButton.pinTop(to: g.textField.bottomAnchor, ConstGame.checkButtonTop)
+    }
+    
+    private func configureVerdictLabel() {
+        view.addSubview(verdictLabel)
+        
+        verdictLabel.translatesAutoresizingMaskIntoConstraints = false
+        verdictLabel.textColor = .white
+        verdictLabel.font = UIFont.systemFont(ofSize: ConstGame.verdictLabelFS, weight: .semibold)
+        verdictLabel.lineBreakMode = .byWordWrapping
+        verdictLabel.numberOfLines = .zero
+        verdictLabel.textAlignment = .center
+        
+        verdictLabel.setWidth(ConstGame.verdictLabelWidth)
+        verdictLabel.pinCenterX(to: view.centerXAnchor)
+        verdictLabel.pinBottom(to: view.safeAreaLayoutGuide.bottomAnchor, ConstGame.verdictLabelBottom)
     }
     
     @objc
@@ -184,9 +202,10 @@ final class GameViewController: UIViewController {
         let tag = sender.tag
         guard let pair = groupData[tag] else { return }
         let textField = pair.textField
-        var intValue = Int(textField.text ?? "0") ?? 0
-        if (intValue < 255) {
-            intValue += 1
+        guard let text = textField.text else { return }
+        var intValue = Int(text) ?? ConstGame.textFieldStartValue
+        if (intValue < ConstGame.textFieldMaxValue) {
+            intValue += ConstGame.incButtonValue
         }
         textField.text = String(intValue)
     }
@@ -196,57 +215,56 @@ final class GameViewController: UIViewController {
         let tag = sender.tag
         guard let pair = groupData[tag] else { return }
         let textField = pair.textField
-        var intValue = Int(textField.text ?? "0") ?? 0
-        if (intValue > 0) {
-            intValue -= 1
+        guard let text = textField.text else { return }
+        if text.isEmpty { return }
+        var intValue = Int(text) ?? .zero
+        if (intValue > ConstGame.textFieldMinValue) {
+            intValue -= ConstGame.decButtonValue
+            textField.text = String(intValue)
+        } else if (intValue == .zero) {
+            textField.text = ConstGame.emptyString
         }
-        textField.text = String(intValue)
     }
     
     @objc
     private func checkButtonPressed() {
-        var red: Double? = nil
-        var green: Double? = nil
-        var blue: Double? = nil
+        var red: Int? = nil
+        var green: Int? = nil
+        var blue: Int? = nil
         
         for el in groupData {
             let dop = el.value.textField
-            if (dop.tag == 0) {
-                red = (Double(dop.text ?? "0") ?? 0.0) / 255
-            } else if (dop.tag == 1) {
-                green = (Double(dop.text ?? "0") ?? 0.0) / 255
-            } else if (dop.tag == 2) {
-                blue = (Double(dop.text ?? "0") ?? 0.0) / 255
+            if (dop.tag == ConstGame.red) {
+                red = (Int(dop.text ?? ConstGame.zeroStr) ?? .zero)
+            } else if (dop.tag == ConstGame.green) {
+                green = (Int(dop.text ?? ConstGame.zeroStr) ?? .zero)
+            } else if (dop.tag == ConstGame.blue) {
+                blue = (Int(dop.text ?? ConstGame.zeroStr) ?? .zero)
             }
         }
         
         for el in [red, green, blue] {
-            if el == nil {
-                return
-            }
+            if el == nil { return }
         }
         
-        print(red)
-        print(green)
-        print(blue)
+        let a = randomColor.getSRGBValues(from: randomColor)
         
-        let a = randomColor.rgb()
-        print(a)
-        
-//        print(randomColor.isEqual(UIColor(red: rgb[0], blue: rgb[1], green: rgb[2])))
+        if abs((red ?? .zero) - a.red) <= ConstGame.allowedError
+            && abs((green ?? .zero) - a.green) <= ConstGame.allowedError
+            && abs((blue ?? .zero) - a.blue) <= ConstGame.allowedError {
+            verdictLabel.text = ConstGame.verdictRight
+        } else {
+            verdictLabel.text = ConstGame.verdictWrong
+        }
     }
 }
 
-func getRGB(from color: UIColor) -> (red: CGFloat, green: CGFloat, blue: CGFloat) {
-    var red: CGFloat = 0
-    var green: CGFloat = 0
-    var blue: CGFloat = 0
-
-    color.getRed(&red, green: &green, blue: &blue, alpha: nil)
-    
-    let red255 = red * 255
-    let green255 = green * 255
-    let blue255 = blue * 255
-
-    return (red: red, green: green, blue: blue)
+extension GameViewController: UITextFieldDelegate {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if string.isEmpty {
+            return true
+        }
+        let newLength = (textField.text?.count ?? .zero) + string.count - range.length
+        return newLength <= ConstGame.textFieldCharLimit
+    }
 }

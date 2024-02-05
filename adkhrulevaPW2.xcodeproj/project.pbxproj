@@ -28,6 +28,7 @@
 		55B59CE62B6FE0CE0061B568 /* VCExtention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B59CE52B6FE0CE0061B568 /* VCExtention.swift */; };
 		55B59CE82B7019780061B568 /* ConstEventCrtn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B59CE72B7019780061B568 /* ConstEventCrtn.swift */; };
 		55B59CEA2B7025A30061B568 /* ConstWishEvCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B59CE92B7025A30061B568 /* ConstWishEvCell.swift */; };
+		55BA1E852B71935E005D178B /* ConstGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BA1E842B71935E005D178B /* ConstGame.swift */; };
 		55D0A0562AFB89B2003C7B38 /* UIViewPin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D0A0552AFB89B2003C7B38 /* UIViewPin.swift */; };
 		55D0A05A2AFB9FB2003C7B38 /* WrittenWishCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D0A0592AFB9FB2003C7B38 /* WrittenWishCell.swift */; };
 /* End PBXBuildFile section */
@@ -56,6 +57,7 @@
 		55B59CE52B6FE0CE0061B568 /* VCExtention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VCExtention.swift; sourceTree = "<group>"; };
 		55B59CE72B7019780061B568 /* ConstEventCrtn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstEventCrtn.swift; sourceTree = "<group>"; };
 		55B59CE92B7025A30061B568 /* ConstWishEvCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstWishEvCell.swift; sourceTree = "<group>"; };
+		55BA1E842B71935E005D178B /* ConstGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstGame.swift; sourceTree = "<group>"; };
 		55D0A0552AFB89B2003C7B38 /* UIViewPin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewPin.swift; sourceTree = "<group>"; };
 		55D0A0592AFB9FB2003C7B38 /* WrittenWishCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WrittenWishCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -112,6 +114,7 @@
 				55951E562B6D97200090B6C4 /* ConstCalendar.swift */,
 				55B59CE72B7019780061B568 /* ConstEventCrtn.swift */,
 				55B59CE92B7025A30061B568 /* ConstWishEvCell.swift */,
+				55BA1E842B71935E005D178B /* ConstGame.swift */,
 			);
 			path = Globals;
 			sourceTree = "<group>";
@@ -231,6 +234,7 @@
 				554973782AFE37B400748342 /* WishStoringViewController.swift in Sources */,
 				55951E642B6DB9EF0090B6C4 /* DateExtension.swift in Sources */,
 				5577B1602ACEE1460008294E /* CustomSliderView.swift in Sources */,
+				55BA1E852B71935E005D178B /* ConstGame.swift in Sources */,
 				55951E572B6D97200090B6C4 /* ConstCalendar.swift in Sources */,
 				55951E532B6D935B0090B6C4 /* WishCalendarViewController.swift in Sources */,
 				554A40FD2B6E9C3600397DEA /* WishEventModel.xcdatamodeld in Sources */,

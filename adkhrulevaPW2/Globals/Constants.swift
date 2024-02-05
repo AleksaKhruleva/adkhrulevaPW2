@@ -29,6 +29,8 @@ enum Constants {
     static let buttonCornerRadius: CGFloat = 20
     static let buttonTitleFS: CGFloat = 20
     
+    static let gameButtonTitle: String = "Mini-game"
+    
     static let hideButtonBottom: CGFloat = 10
     static let hideButtonTextShow: String = "Show sliders"
     static let hideButtonTextHide: String = "Hide sliders"
